@@ -38,7 +38,7 @@ mongoose
 			},
 			{
 				name: 'Modern JavaScript From The Beginning',
-				institution: 'Udemy',
+				institution: 'Not Udemy',
 				image: 'https://img-a.udemycdn.com/course/240x135/1463348_52a4_2.jpg',
 				value: 21.99,
 				duration: 21.5,
