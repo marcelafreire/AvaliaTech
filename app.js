@@ -38,10 +38,13 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// const auth = require('./routes/auth');
+
 const index = require('./routes/index');
+// const course = require('./routes/course');
+const users = require('./routes/users');
 app.use('/', index);
-// app.use('/', auth);
+// app.use('/', course);
+app.use('/', users);
 
 
 
