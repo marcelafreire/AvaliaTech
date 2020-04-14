@@ -1,0 +1,49 @@
+<h1>Adicionar Curso</h1>
+
+<form action="/course/add" method="POST">
+
+    <label for="name">Nome do Curso</label>
+    <input type="text" name="name">
+    <br><br>
+
+    <label for="institution">Instituição</label>
+    <input type="text" name="institution">
+    <br><br>
+
+    <label for="value">Valor</label>
+    <input type="text" name="value">
+    <br><br>
+
+    <label for="duration">Duração do Curso em Horas </label>
+    <input type="text" name="duration">
+    <br><br>
+
+    <label for="format">Formato</label>
+    <select name="format">
+        <option value="online">Online</option>
+        <option value="presencial">Presencial</option>
+    </select>
+    <br><br>
+
+    <label for="category">Categoria</label>
+    <select name="category">
+        <option value="Desenvolvimento Web">Desenvolvimento Web</option>
+        <option value="Ciência de Dados">Ciência de Dados</option>
+        <option value="Aplicativos Mobile">Aplicativos Mobile</option>
+        <option value="Desenvolvimento de Jogos">Desenvolvimento de Jogos</option>
+        <option value="Banco de Dados">Banco de Dados</option>
+        <option value="E-Commerce">E-Commerce</option>
+    </select>
+    <br><br>
+
+    <label>Comentário</label>
+    <br>
+    <textarea name="review" rows="4" cols="50"></textarea>
+    <br><br>
+
+    <label for="rating">Nota</label>
+    <input type="text" name="rating">
+    <br><br>
+
+    <button type="submit">Adicionar Curso</button>
+</form>

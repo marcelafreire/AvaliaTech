@@ -34,4 +34,28 @@ router.get('/course/list', (req, res) => {
 	}
 });
 
+router.get('/course/add', (req, res) => {
+	res.render('course/add');
+});
+
+router.post('/course/add', (req, res) => {
+	const { name, institution, value, duration, format, category, review, rating } = req.body;
+
+	const reviews = [ { review, rating } ];
+	const newCourse = { name, institution, value, duration, format, category, reviews };
+
+	// const numbers = /^[-+]?[0-9]+$/;
+	// console.log(value.match(numbers));
+
+	Course.create(newCourse)
+		.then((course) => {
+			console.log(course);
+			res.redirect('/course/list');
+		})
+		.catch((err) => {
+			console.log(err);
+			res.render('error');
+		});
+});
+
 module.exports = router;
