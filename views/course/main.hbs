@@ -1,0 +1,23 @@
+<h1>Main</h1>
+
+<a href="/course/list"><button>Mostrar todos os cursos</button></a>
+
+<br><br>
+<form action="/course/list">
+    <label for="institution">Instituição</label>
+    <input type="text" name="institution">
+    <button type="submit">Listar por instituição</button>
+</form>
+
+<br><br>
+<form action="/course/list">
+    <select name="category">
+        <option value="Desenvolvimento Web">Desenvolvimento Web</option>
+        <option value="Ciência de Dados">Ciência de Dados</option>
+        <option value="Aplicativos Mobile">Aplicativos Mobile</option>
+        <option value="Desenvolvimento de Jogos">Desenvolvimento de Jogos</option>
+        <option value="Banco de Dados">Banco de Dados</option>
+        <option value="E-Commerce">E-Commerce</option>
+    </select>
+    <button type="submit">Listar por categoria</button>
+</form>
