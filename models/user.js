@@ -10,18 +10,16 @@ const userSchema = new Schema({
   password: {
     type: String,
     // required: true
-  }
+  },
+  role: {
+    type: String,
+    enum : ['GUEST', 'EDITOR', 'ADMIN'],
+    default : 'GUEST'
+  },
+  email: String,
+  path: String, // points to the path of the image
+  originalName: String // images original name
 }, 
-{
-role: {
-  type: String,
-  enum : ['GUEST', 'EDITOR', 'ADMIN'],
-  default : 'GUEST'
-},
-email: String,
-path: String, // points to the path of the image
-originalName: String // images original name
-},
 
 {
   timestamps: true
