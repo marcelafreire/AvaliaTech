@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const ensureLogin = require("connect-ensure-login");
+
 
 const Course = require('../models/course');
 
@@ -34,11 +36,11 @@ router.get('/course/list', (req, res) => {
 	}
 });
 
-router.get('/course/add', (req, res) => {
+router.get('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 	res.render('course/add');
 });
 
-router.post('/course/add', (req, res) => {
+router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const { name, institution, value, duration, format, category, review, rating } = req.body;
 
 	const reviews = [ { review, rating } ];

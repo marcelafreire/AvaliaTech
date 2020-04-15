@@ -17,8 +17,8 @@ const userSchema = new Schema({
     default : 'GUEST'
   },
   email: String,
-  path: String, // points to the path of the image
-  originalName: String // images original name
+  imgName: String,
+  imgPath: String,
 }, 
 
 {

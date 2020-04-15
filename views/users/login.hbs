@@ -7,7 +7,7 @@
   <label for="password">Senha</label>
   <input type="password" name="password">
 
-{{#if message}}
+  {{#if message}}
     <div class="error-message">{{ message }}</div>
   {{/if}}
   <button>Login</button>
@@ -15,6 +15,6 @@
   <p class="account-message">
     Não tem uma conta? <a href="/signup">Cadastre-se</a>
   </p>
-  {{!-- <a href="/auth/slack">Login With Slack</a>
- <a href="/auth/google">Login With Google</a> --}}
+ <a href="/auth/google">Login With Google</a>
+ <a href="/auth/facebook">Login With facebook</a>
 </form>
