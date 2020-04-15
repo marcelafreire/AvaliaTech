@@ -16,7 +16,6 @@ const session = require('express-session')
 const ensureLogin = require("connect-ensure-login");
 
 
-
 //banco de dados
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -43,18 +42,20 @@ app.use(
 );
 app.use(cookieParser());
 
+
 app.use(session({
   secret: "our-passport-local-strategy-app",
   resave: true,
   saveUninitialized: true,
 }));
 
-//Passport 
+//Passport
 passport.serializeUser((user, cb) => {
-  cb(null, user._id);
+	cb(null, user._id);
 });
 
 passport.deserializeUser((id, cb) => {
+
   User.findById(id, (err, user) => {
     if (err) {
       return cb(err);
@@ -62,6 +63,24 @@ passport.deserializeUser((id, cb) => {
     cb(null, user);
   });
 });
+
+app.use(flash());
+passport.use(
+	new LocalStrategy(
+		{
+			passReqToCallback: true
+		},
+		(req, username, password, next) => {
+			User.findOne({ username }, (err, user) => {
+				if (err) {
+					return next(err);
+				}
+				if (!user) {
+					return next(null, false, { message: 'Incorrect username' });
+				}
+				if (!bcrypt.compareSync(password, user.password)) {
+					return next(null, false, { message: 'Incorrect password' });
+				}
 
 
 app.use(flash());
@@ -88,8 +107,6 @@ passport.use(new LocalStrategy({
     return next(null, user);
   });
 }));
-
-
 
 //social login google
 const GoogleStrategy = require("passport-google-oauth20").Strategy;

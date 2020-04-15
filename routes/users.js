@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
 const User = require('../models/user');
 const uploadCloud = require('../config/cloudinary.js');
-const passport = require("passport");
+const passport = require('passport');
 const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
 const ensureLogin = require("connect-ensure-login");
@@ -13,18 +13,27 @@ const ensureLogin = require("connect-ensure-login");
 
 // NODEMAILER
 let transporter = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
-    auth: {
-        user: process.env.MAIL_user,
-        pass: process.env.MAIL_pass
-    }
+	host: 'smtp.mailtrap.io',
+	port: 2525,
+	auth: {
+		user: process.env.MAIL_user,
+		pass: process.env.MAIL_pass
+	}
 });
 
 //LOGIN
 router.get('/login', (req, res) => {
-    res.render('users/login');
+	res.render('users/login');
 });
+
+//social login
+// router.post("/login", passport.authenticate("local", {
+//     successRedirect: "/",
+//     failureRedirect: "/login",
+//     failureFlash: true,
+//     passReqToCallback: true,
+//   }));
+
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
@@ -182,7 +191,5 @@ router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/login");
 });
-
-
 
 module.exports = router;
