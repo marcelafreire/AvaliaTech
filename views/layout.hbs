@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <a href="/">Home</a>
@@ -11,6 +12,12 @@
     <a href="/signup">Cadastre-se</a>
     <a href="/logout">logout</a>
     <a href="/about">sobre nós</a>
+    <a href="/course">Cursos</a>
+
+    {{#with user}}
+        <a href="/profile/{{_id}}">Minha conta</a>
+    {{/with}}
+    
     {{{body}}}
 </body>
 </html>
