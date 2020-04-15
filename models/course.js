@@ -19,8 +19,7 @@ const courseSchema = new Schema({
 			'E-Commerce'
 		]
 	},
-	reviews: [ { review: String, rating: Number } ]
-	// owner: { type: Schema.Types.ObjectId, ref: 'Story' }
+	reviews: [ { type: Schema.Types.ObjectId, ref: 'Review' } ]
 });
 
 const Course = mongoose.model('Course', courseSchema);

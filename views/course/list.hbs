@@ -12,20 +12,13 @@
 <ul>
     {{#each courses}}
         <li>
-            <h4>Nome: {{name}}</h4>
-            <h4>Instituição: {{institution}}</h4>
+            <h4><a href="/course/{{_id}}">{{name}}</a></h4>
+            {{!-- <h4>Instituição: {{institution}}</h4>
             <h4>Valor: {{value}}</h4>
             <h4>Duração: {{duration}} horas</h4>
             <h4>Formato: {{format}}</h4>
             <h4>Categoria: {{category}}</h4>
-            <br>
-            <ul>
-                {{#each reviews}}
-                    <h3>{{review}}</h3>
-                    <h4>Nota: {{rating}}</h4>
-                {{/each}}
-            </ul>
-            <br>
-        </li>        
+            <br> --}}
+        </li>
     {{/each}}
 </ul>
