@@ -48,6 +48,7 @@ app.use(session({
   secret: "our-passport-local-strategy-app",
   resave: true,
   saveUninitialized: true,
+  ttl: 24 * 60 * 60
 }));
 
 //Passport
@@ -167,8 +168,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 const index = require('./routes/index');
 const course = require('./routes/course');
 const users = require('./routes/users');
+const reviews = require('./routes/reviews');
 app.use('/', index);
 app.use('/', course);
 app.use('/', users);
+app.use('/', reviews);
 
 module.exports = app;
