@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ensureLogin = require("connect-ensure-login");
-
+const ensureLogin = require('connect-ensure-login');
 
 const Course = require('../models/course');
 const User = require('../models/user');
@@ -38,11 +37,11 @@ router.get('/course/list', (req, res) => {
 	}
 });
 
-router.get('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
+router.get('/course/add', (req, res) => {
 	res.render('course/add');
 });
 
-router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
+router.post('/course/add', (req, res) => {
 	const { name, institution, value, duration, format, category, review, rating } = req.body;
 
 	const reviews = [ { review, rating } ];
@@ -60,7 +59,6 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 });
 
 router.get('/course/:id', (req, res) => {
-	// const userId = req.session.passport.user;
 	const { id } = req.params;
 
 	Course.findOne({ _id: id })
@@ -73,14 +71,6 @@ router.get('/course/:id', (req, res) => {
 		})
 		.then((course) => {
 			console.log(course);
-			// course.reviews.forEach((review) => {
-			// 	console.log('writerId: ', review.writer._id);
-			// 	console.log('userId: ', userId);
-			// 	console.log(review.writer._id === userId);
-			// 	if (review.writer._id === userId) {
-			// 		console.log('igual');
-			// 	}
-			// });
 			res.render('course/show', course);
 		})
 		.catch((err) => console.log(err));
@@ -129,14 +119,12 @@ router.get('/course/delete/:id', (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-router.get('/test', (req, res) => {
-	res.render('course/test');
-});
-
-router.get('/review/json/:id', (req, res) => {
+//Review API
+router.put('/api/review/:id', (req, res) => {
+	const { text, rating } = req.body;
 	const { id } = req.params;
 	console.log(id);
-	Course.findOne({ _id: id })
+	Review.findOneAndUpdate({ _id: id }, { text, rating }, { new: true })
 		.then((review) => {
 			console.log(review);
 			res.json(review);
@@ -144,20 +132,15 @@ router.get('/review/json/:id', (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-router.put('/test/edit/:id', (req, res) => {
-	const { name } = req.body;
+router.delete('/api/review/:id', (req, res) => {
 	const { id } = req.params;
-	console.log(name);
-	Course.findOneAndUpdate({ _id: id }, { name })
-		.then((course) => {
-			console.log(course);
-			res.send('foi');
+
+	Review.findOneAndDelete({ _id: id })
+		.then((review) => {
+			console.log(review);
+			res.send('Deleted: ' + review);
 		})
 		.catch((err) => console.log(err));
-});
-
-router.get('/session', (req, res) => {
-	res.send(req.session);
 });
 
 module.exports = router;
