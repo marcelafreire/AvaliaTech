@@ -1,10 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const ensureLogin = require('connect-ensure-login');
-
+const ensureLogin = require("connect-ensure-login");
 const Course = require('../models/course');
 const User = require('../models/user');
 const Review = require('../models/review');
+const session = require("express-session");
+
+const checkGuest  = checkRoles('GUEST');
+const checkEditor = checkRoles('EDITOR');
+const checkAdmin  = checkRoles('ADMIN');
+
+//check Roles
+function checkRoles(role) {
+	return function(req, res, next) {
+	  if (req.isAuthenticated() && req.user.role === role) {
+		return next();
+	  } else {
+		res.redirect(`/course`)
+	  }
+	}
+  }
 
 router.get('/course', (req, res) => {
 	res.render('course/main');
@@ -37,20 +52,21 @@ router.get('/course/list', (req, res) => {
 	}
 });
 
-router.get('/course/add', (req, res) => {
-	res.render('course/add');
+
+router.get('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
+	res.render('course/add', {user: req.user});
 });
 
 router.post('/course/add', (req, res) => {
 	const { name, institution, value, duration, format, category, review, rating } = req.body;
 
 	const reviews = [ { review, rating } ];
-	const newCourse = { name, institution, value, duration, format, category, reviews };
+	const newCourse = { name, institution, value, duration, format, category, reviews};
 
 	Course.create(newCourse)
 		.then((course) => {
 			console.log(course);
-			res.redirect('/course/list');
+			res.redirect('/course/list', {user: req.user});
 		})
 		.catch((err) => {
 			console.log(err);
@@ -76,7 +92,7 @@ router.get('/course/:id', (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-router.get('/course/edit/:id', (req, res) => {
+router.get('/course/edit/:id', checkAdmin, (req, res) => {
 	const { id } = req.params;
 
 	Course.findOne({ _id: id })
@@ -108,7 +124,7 @@ router.post('/course/edit/:id', (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-router.get('/course/delete/:id', (req, res) => {
+router.get('/course/delete/:id', checkAdmin, (req, res) => {
 	const { id } = req.params;
 
 	Course.findByIdAndDelete(id)
@@ -118,6 +134,7 @@ router.get('/course/delete/:id', (req, res) => {
 		})
 		.catch((err) => console.log(err));
 });
+
 
 //Review API
 router.put('/api/review/:id', (req, res) => {
@@ -142,5 +159,28 @@ router.delete('/api/review/:id', (req, res) => {
 		})
 		.catch((err) => console.log(err));
 });
+
+
+router.post('/reviews/add/:id', (req, res) => {
+	const userId = '5e986ec20f415822d648fcbb'
+	const {text, rating} = req.body;
+	const {id} = req.params
+
+	User.findOne({_id: userId})
+	.then(user => {	
+		console.log(user)
+	Review.create({text, rating, writer:user})
+	.then(review => {
+		Course.findOneAndUpdate({_id: id}, {$push: { reviews: review}})
+		.then(course => {
+			res.redirect(`/course/${review._id}`)
+		})
+		.catch((error) => {console.log(error)})
+	})
+	.catch((error) => {console.log(error)})
+  })
+  .catch((error) => {console.log(error)})
+});
+
 
 module.exports = router;

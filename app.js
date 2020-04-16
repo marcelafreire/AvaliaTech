@@ -16,6 +16,7 @@ const session = require('express-session')
 const ensureLogin = require("connect-ensure-login");
 
 
+
 //banco de dados
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -122,7 +123,7 @@ passport.use(
         .catch(err => done(err)); // closes User.findOne()
     }));
 
-
+  
 // social login facebook
 const FacebookStrategy = require('passport-facebook').Strategy;
 
@@ -151,10 +152,7 @@ passport.use(new FacebookStrategy({
       })
       .catch(err => done(err)); // closes User.findOne()
   }));
-
-
-//recaptcha
-
+  
 
 //passport initialization
 app.use(passport.initialize());
