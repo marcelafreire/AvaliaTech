@@ -74,7 +74,7 @@ router.post('/course/add', (req, res) => {
 		});
 });
 
-router.get('/course/:id', (req, res) => {
+router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const { id } = req.params;
 
 	Course.findOne({ _id: id })
@@ -86,8 +86,18 @@ router.get('/course/:id', (req, res) => {
 			}
 		})
 		.then((course) => {
-			console.log(course);
-			res.render('course/show', course);
+	
+			course.reviews = course.reviews.map(review => {
+				// console.log(review.writer.toString(), req.user._id.toString())
+
+                if (review.writer && review.writer._id.toString() === req.user._id.toString()) {
+                  review.isOwner = true;
+                }
+                return review;
+              });
+              res.render('course/show', {course,
+                user: req.user,
+              });
 		})
 		.catch((err) => console.log(err));
 });
@@ -133,53 +143,6 @@ router.get('/course/delete/:id', checkAdmin, (req, res) => {
 			res.redirect('/course/list');
 		})
 		.catch((err) => console.log(err));
-});
-
-
-//Review API
-router.put('/api/review/:id', (req, res) => {
-	const { text, rating } = req.body;
-	const { id } = req.params;
-	console.log(id);
-	Review.findOneAndUpdate({ _id: id }, { text, rating }, { new: true })
-		.then((review) => {
-			console.log(review);
-			res.json(review);
-		})
-		.catch((err) => console.log(err));
-});
-
-router.delete('/api/review/:id', (req, res) => {
-	const { id } = req.params;
-
-	Review.findOneAndDelete({ _id: id })
-		.then((review) => {
-			console.log(review);
-			res.send('Deleted: ' + review);
-		})
-		.catch((err) => console.log(err));
-});
-
-
-router.post('/reviews/add/:id', (req, res) => {
-	const userId = '5e986ec20f415822d648fcbb'
-	const {text, rating} = req.body;
-	const {id} = req.params
-
-	User.findOne({_id: userId})
-	.then(user => {	
-		console.log(user)
-	Review.create({text, rating, writer:user})
-	.then(review => {
-		Course.findOneAndUpdate({_id: id}, {$push: { reviews: review}})
-		.then(course => {
-			res.redirect(`/course/${review._id}`)
-		})
-		.catch((error) => {console.log(error)})
-	})
-	.catch((error) => {console.log(error)})
-  })
-  .catch((error) => {console.log(error)})
 });
 
 

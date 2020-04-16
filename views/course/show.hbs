@@ -1,8 +1,11 @@
+
+{{#with course}}
 <h1>{{name}}</h1>
 <br>
 
 <a href="/course/edit/{{_id}}">Edit</a>
 <a href="/course/delete/{{_id}}">Delete</a>
+
 <br>
 <h4>Instituição: {{institution}}</h4>
 <h4>Valor: {{value}}</h4>
@@ -11,6 +14,8 @@
 <h4>Categoria: {{category}}</h4>
 <br>
 <ul>
+
+
 {{#each reviews}}
 <div id="review{{@index}}">
     <h2>{{writer.username}}</h2>
@@ -24,16 +29,17 @@
         <input type="text" id="ratingReview{{@index}}" value="{{rating}}" disabled>
     </div>
     <br>
+    {{#if isOwner}}
     <button type="button" id="edit{{@index}}" class="edit">Editar</button>
     <button type="button" id="save{{@index}}" class="save" hidden>Salvar</button>
     <button type="button" id="delete{{@index}}" class="delete">Deletar</button>
     <br>
+    {{/if}}
 
 </div>
 {{/each}}
 </ul>
-
-    <p>Add a review</p>
+ <p>Add a review</p>
 <form action="/reviews/add/{{_id}}" method="post">
 <h2>{{writer.username}}</h2>  
 <label for="">Avaliação:</label>
@@ -44,6 +50,9 @@
 
   <button type="submit">ADD</button>
 
+{{/with}}
 
-{{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script> --}}
-{{!-- <script src="/javascript/show.js"></script> --}}
+   
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script src="/javascript/show.js"></script>
