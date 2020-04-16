@@ -52,11 +52,12 @@ router.get('/course/list', (req, res) => {
 	}
 });
 
+
 router.get('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 	res.render('course/add', {user: req.user});
 });
 
-router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
+router.post('/course/add', (req, res) => {
 	const { name, institution, value, duration, format, category, review, rating } = req.body;
 
 	const reviews = [ { review, rating } ];
@@ -74,7 +75,6 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 });
 
 router.get('/course/:id', (req, res) => {
-	// const userId = req.session.passport.user;
 	const { id } = req.params;
 
 	Course.findOne({ _id: id })
@@ -136,6 +136,31 @@ router.get('/course/delete/:id', checkAdmin, (req, res) => {
 });
 
 
+//Review API
+router.put('/api/review/:id', (req, res) => {
+	const { text, rating } = req.body;
+	const { id } = req.params;
+	console.log(id);
+	Review.findOneAndUpdate({ _id: id }, { text, rating }, { new: true })
+		.then((review) => {
+			console.log(review);
+			res.json(review);
+		})
+		.catch((err) => console.log(err));
+});
+
+router.delete('/api/review/:id', (req, res) => {
+	const { id } = req.params;
+
+	Review.findOneAndDelete({ _id: id })
+		.then((review) => {
+			console.log(review);
+			res.send('Deleted: ' + review);
+		})
+		.catch((err) => console.log(err));
+});
+
+
 router.post('/reviews/add/:id', (req, res) => {
 	const userId = '5e986ec20f415822d648fcbb'
 	const {text, rating} = req.body;
@@ -157,5 +182,5 @@ router.post('/reviews/add/:id', (req, res) => {
   .catch((error) => {console.log(error)})
 });
 
-  
+
 module.exports = router;

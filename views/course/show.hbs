@@ -12,18 +12,24 @@
 <br>
 <ul>
 {{#each reviews}}
+<div id="review{{@index}}">
     <h2>{{writer.username}}</h2>
-    <input type="text" name="id" value="{{_id}}" hidden>
-    <textarea id="review" cols="100" rows="3" disabled>{{text}}</textarea>
+
+    <input type="text" name="id" class="reviewID" value="{{_id}}" hidden>
+    <textarea id="textReview{{@index}}" cols="100" rows="3" disabled>{{text}}</textarea>
+
     <br><br>
     <div>
         <label for="">Rating</label>
-        <input type="text" value="{{rating}}" disabled>
+        <input type="text" id="ratingReview{{@index}}" value="{{rating}}" disabled>
     </div>
     <br>
-    <button type="button" class="edit">Edit</button>
+    <button type="button" id="edit{{@index}}" class="edit">Editar</button>
+    <button type="button" id="save{{@index}}" class="save" hidden>Salvar</button>
+    <button type="button" id="delete{{@index}}" class="delete">Deletar</button>
     <br>
 
+</div>
 {{/each}}
 </ul>
 
