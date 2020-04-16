@@ -53,25 +53,36 @@ router.get('/course/list', (req, res) => {
 });
 
 
-router.get('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
-	res.render('course/add', {user: req.user});
+router.get('/course/add', (req, res) => {
+	const formats = Course.schema.path('format').enumValues;
+	const categories = Course.schema.path('category').enumValues;
+	res.render('course/add', { formats, categories });
 });
 
 router.post('/course/add', (req, res) => {
-	const { name, institution, value, duration, format, category, review, rating } = req.body;
-
-	const reviews = [ { review, rating } ];
-	const newCourse = { name, institution, value, duration, format, category, reviews};
-
-	Course.create(newCourse)
-		.then((course) => {
-			console.log(course);
-			res.redirect('/course/list', {user: req.user});
+	//MOCKUP USER
+	const username = 'massao'; // MOCKUP USER
+	///MOCKUP USER
+	const { name, institution, value, duration, format, category, text, rating } = req.body;
+	const newCourse = { name, institution, value, duration, format, category };
+	
+	User.findOne({username})
+		.then(writer => {
+			Review.create({ text, rating, writer })
+				.then( review => {
+					newCourse.reviews = [ review ];
+					Course.create(newCourse)
+						.then((course) => {
+							console.log(course);
+							res.redirect('/course/list');
+						})
+						.catch((err) => {
+							console.log(err);
+							res.render('error');
+						});
+				})
 		})
-		.catch((err) => {
-			console.log(err);
-			res.render('error');
-		});
+		.catch(err => console.log(err));
 });
 
 router.get('/course/:id', (req, res) => {
@@ -92,7 +103,7 @@ router.get('/course/:id', (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-router.get('/course/edit/:id', checkAdmin, (req, res) => {
+router.get('/course/edit/:id', (req, res) => {
 	const { id } = req.params;
 
 	Course.findOne({ _id: id })
@@ -104,8 +115,15 @@ router.get('/course/edit/:id', checkAdmin, (req, res) => {
 			}
 		})
 		.then((course) => {
-			console.log(course);
-			res.render('course/edit', course);
+			const formats = Course.schema.path('format').enumValues.map(
+				format => {
+					return { format, selected: (course.format === format) }
+			});
+			const categories = Course.schema.path('category').enumValues.map(
+				category => {
+					return { category, selected: (course.category === category) }
+			});
+			res.render('course/edit', {course, categories, formats});
 		})
 		.catch((err) => console.log(err));
 });
@@ -124,7 +142,7 @@ router.post('/course/edit/:id', (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-router.get('/course/delete/:id', checkAdmin, (req, res) => {
+router.get('/course/delete/:id', (req, res) => {
 	const { id } = req.params;
 
 	Course.findByIdAndDelete(id)

@@ -1,5 +1,6 @@
 <h1>Editar Curso</h1>
 
+    {{#with course}}
 <form action="/course/edit/{{_id}}" method="POST">
 
     <label for="name">Nome do Curso</label>
@@ -17,33 +18,23 @@
     <label for="duration">Duração do Curso em Horas </label>
     <input type="text" name="duration" value="{{duration}}">
     <br><br>
+    {{/with}}
 
     <label for="format">Formato</label>
     <select name="format">
-        <option value="online">Online</option>
-        <option value="presencial">Presencial</option>
+        {{#each formats}}
+            <option value="{{format}}" {{#if selected}} selected {{/if}}>{{format}}</option>
+        {{/each}}
     </select>
     <br><br>
 
     <label for="category">Categoria</label>
     <select name="category">
-        <option value="Desenvolvimento Web">Desenvolvimento Web</option>
-        <option value="Ciência de Dados">Ciência de Dados</option>
-        <option value="Aplicativos Mobile">Aplicativos Mobile</option>
-        <option value="Desenvolvimento de Jogos">Desenvolvimento de Jogos</option>
-        <option value="Banco de Dados">Banco de Dados</option>
-        <option value="E-Commerce">E-Commerce</option>
+        {{#each categories}}
+            <option value="{{category}}" {{#if selected}} selected{{/if}}>{{category}}</option>
+        {{/each}}
     </select>
     <br><br>
-
-    {{!-- <label>Comentário</label>
-    <br>
-    <textarea name="review" rows="4" cols="50">{{reviews.[0].text}}</textarea>
-    <br><br>
-
-    <label for="rating">Nota</label>
-    <input type="text" name="rating" value="{{reviews.[0].rating}}">
-    <br><br> --}}
 
     <button type="submit">Salvar Curso</button>
 </form>
