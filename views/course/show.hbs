@@ -1,5 +1,6 @@
 <h1>{{name}}</h1>
 <br>
+
 <a href="/course/edit/{{_id}}">Edit</a>
 <a href="/course/delete/{{_id}}">Delete</a>
 <br>
@@ -12,10 +13,8 @@
 <ul>
 {{#each reviews}}
     <h2>{{writer.username}}</h2>
-    {{!-- <h4>{{review}}</h4> --}}
     <input type="text" name="id" value="{{_id}}" hidden>
     <textarea id="review" cols="100" rows="3" disabled>{{text}}</textarea>
-    {{!-- <h4>Nota: {{rating}}</h4> --}}
     <br><br>
     <div>
         <label for="">Rating</label>
@@ -24,7 +23,21 @@
     <br>
     <button type="button" class="edit">Edit</button>
     <br>
+
 {{/each}}
 </ul>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-<script src="/javascript/show.js"></script>
+
+    <p>Add a review</p>
+<form action="/reviews/add/{{_id}}" method="post">
+<h2>{{writer.username}}</h2>  
+<label for="">Avaliação:</label>
+  <textarea type="text" name="text"></textarea>
+    
+  <label for="">Rating</label>
+  <input type="text" name="rating"  rows="1" cols="2"></input>
+
+  <button type="submit">ADD</button>
+
+
+{{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script> --}}
+{{!-- <script src="/javascript/show.js"></script> --}}

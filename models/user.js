@@ -14,7 +14,7 @@ const userSchema = new Schema({
   role: {
     type: String,
     enum : ['GUEST', 'EDITOR', 'ADMIN'],
-    default : 'GUEST'
+    default : 'EDITOR'
   },
   email: String,
   imgName: String,
