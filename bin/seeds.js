@@ -1,9 +1,11 @@
 require('dotenv').config();
-
+const bcrypt = require('bcrypt');
+const bcryptSalt = 10;
 const mongoose = require('mongoose');
 const Course = require('../models/course');
 const User = require('../models/user');
 const Review = require('../models/review');
+
 
 mongoose
 	.connect(process.env.MONGODB_URI)
@@ -15,10 +17,13 @@ mongoose
 		User.collection.drop();
 		Review.collection.drop();
 
+		const salt = bcrypt.genSaltSync(bcryptSalt);
+        const hashPass = bcrypt.hashSync('123', salt);
+
 		const users = [
 			{
 				username: 'massao',
-				password: '123',
+				password: hashPass,
 				role: 'ADMIN',
 				email: 'massao@avaliatech.com',
 				path: '',
@@ -26,7 +31,7 @@ mongoose
 			},
 			{
 				username: 'marcela',
-				password: '123',
+				password: hashPass,
 				role: 'ADMIN',
 				email: 'marcela@avaliatech.com',
 				path: '',
@@ -34,7 +39,7 @@ mongoose
 			},
 			{
 				username: 'nassau',
-				password: '123',
+				password: hashPass,
 				role: 'GUEST',
 				email: 'nassau@avaliatech.com',
 				path: '',

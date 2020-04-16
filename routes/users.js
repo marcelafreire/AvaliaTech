@@ -26,14 +26,6 @@ router.get('/login', (req, res) => {
 	res.render('users/login');
 });
 
-//social login
-// router.post("/login", passport.authenticate("local", {
-//     successRedirect: "/",
-//     failureRedirect: "/login",
-//     failureFlash: true,
-//     passReqToCallback: true,
-//   }));
-
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
@@ -78,7 +70,6 @@ router.get('/auth/facebook/callback',
 router.get('/signup', (req, res, next) => {
     res.render('users/signup');
 })
-
 //post 
 router.post("/signup", async (req, res, next) => {
     const username = req.body.username;
@@ -165,16 +156,11 @@ router.get('/about', (req, res) => {
         console.log('Error ', error);
       })
     });
-    
-
   // editar infos
   router.post('/profile-edit', uploadCloud.single('photo'), ensureLogin.ensureLoggedIn(), (req, res) => {
     const {username, email} = req.body;
     const {id} = req.query;
 
-    // if(username === "" || email === "") {
-    //  res.render(`profile/${id}`, {errorMessage: 'campo vazio'})
-    // }
     if(username !== "" || email !== "") {
      }
  User.findByIdAndUpdate({_id: id}, 
@@ -185,7 +171,34 @@ router.get('/about', (req, res) => {
 })
       .catch(error => console.log(error));
   });  
-  
+
+
+// //PASSWORD
+router.get('/password/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
+  const {id} = req.params;
+  User.findById(id)
+    .then(user => {
+      console.log(user)
+      res.render('users/password', user);
+    })
+    .catch(error => {
+      console.log('Error ', error);
+    })
+  });
+// editar 
+router.post('/password',  ensureLogin.ensureLoggedIn(), (req, res) => {
+  const {password} = req.body;
+  const {id} = req.query;
+
+User.findByIdAndUpdate({_id: id}, 
+    {$set: {password}}, 
+    {new: true})
+    .then(response => {
+      res.redirect(`/profile/${id}`);
+})
+    .catch(error => console.log(error));
+});  
+
   //LOGOUT
 router.get("/logout", (req, res) => {
   req.logout();
