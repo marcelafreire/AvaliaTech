@@ -1,25 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const ensureLogin = require("connect-ensure-login");
+const ensureLogin = require('connect-ensure-login');
 const Course = require('../models/course');
 const User = require('../models/user');
 const Review = require('../models/review');
-const session = require("express-session");
+const session = require('express-session');
 
-const checkGuest  = checkRoles('GUEST');
+const checkGuest = checkRoles('GUEST');
 const checkEditor = checkRoles('EDITOR');
-const checkAdmin  = checkRoles('ADMIN');
+const checkAdmin = checkRoles('ADMIN');
 
 //check Roles
 function checkRoles(role) {
 	return function(req, res, next) {
-	  if (req.isAuthenticated() && req.user.role === role) {
-		return next();
-	  } else {
-		res.redirect(`/course`)
-	  }
-	}
-  }
+		if (req.isAuthenticated() && req.user.role === role) {
+			return next();
+		} else {
+			res.redirect(`/course`);
+		}
+	};
+}
 
 router.get('/course', (req, res) => {
 	res.render('course/main');
@@ -52,37 +52,32 @@ router.get('/course/list', (req, res) => {
 	}
 });
 
-
 router.get('/course/add', (req, res) => {
 	const formats = Course.schema.path('format').enumValues;
 	const categories = Course.schema.path('category').enumValues;
 	res.render('course/add', { formats, categories });
 });
 
-router.post('/course/add', (req, res) => {
-	//MOCKUP USER
-	const username = 'massao'; // MOCKUP USER
-	///MOCKUP USER
+router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const { name, institution, value, duration, format, category, text, rating } = req.body;
 	const newCourse = { name, institution, value, duration, format, category };
-	
-	User.findOne({username})
-		.then(writer => {
-			Review.create({ text, rating, writer })
-				.then( review => {
-					newCourse.reviews = [ review ];
-					Course.create(newCourse)
-						.then((course) => {
-							console.log(course);
-							res.redirect('/course/list');
-						})
-						.catch((err) => {
-							console.log(err);
-							res.render('error');
-						});
-				})
+
+	User.findOne({ _id: req.user.id })
+		.then((writer) => {
+			Review.create({ text, rating, writer }).then((review) => {
+				newCourse.reviews = [ review ];
+				Course.create(newCourse)
+					.then((course) => {
+						console.log(course);
+						res.redirect('/course/list');
+					})
+					.catch((err) => {
+						console.log(err);
+						res.render('error');
+					});
+			});
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 });
 
 router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
@@ -97,18 +92,16 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 			}
 		})
 		.then((course) => {
-	
-			course.reviews = course.reviews.map(review => {
-				// console.log(review.writer.toString(), req.user._id.toString())
-
-                if (review.writer && review.writer._id.toString() === req.user._id.toString()) {
-                  review.isOwner = true;
-                }
-                return review;
-              });
-              res.render('course/show', {course,
-                user: req.user,
-              });
+			course.reviews = course.reviews.map((review) => {
+				if (review.writer && review.writer._id.toString() === req.user._id.toString()) {
+					review.isOwner = true;
+				}
+				return review;
+			});
+			res.render('course/show', {
+				course,
+				user: req.user
+			});
 		})
 		.catch((err) => console.log(err));
 });
@@ -125,24 +118,22 @@ router.get('/course/edit/:id', (req, res) => {
 			}
 		})
 		.then((course) => {
-			const formats = Course.schema.path('format').enumValues.map(
-				format => {
-					return { format, selected: (course.format === format) }
+			const formats = Course.schema.path('format').enumValues.map((format) => {
+				return { format, selected: course.format === format };
 			});
-			const categories = Course.schema.path('category').enumValues.map(
-				category => {
-					return { category, selected: (course.category === category) }
+			const categories = Course.schema.path('category').enumValues.map((category) => {
+				return { category, selected: course.category === category };
 			});
-			res.render('course/edit', {course, categories, formats});
+			res.render('course/edit', { course, categories, formats });
 		})
 		.catch((err) => console.log(err));
 });
 
 router.post('/course/edit/:id', (req, res) => {
-	const { name, institution, value, duration, format, category, text, rating } = req.body;
+	const { name, institution, value, duration, format, category } = req.body;
 	const { id } = req.params;
 
-	const editCourse = { name, institution, value, duration, format, category, $push: { reviews: { text, rating } } };
+	const editCourse = { name, institution, value, duration, format, category };
 
 	Course.findOneAndUpdate({ _id: id }, editCourse, { new: true })
 		.then((course) => {
@@ -162,6 +153,5 @@ router.get('/course/delete/:id', (req, res) => {
 		})
 		.catch((err) => console.log(err));
 });
-
 
 module.exports = router;
