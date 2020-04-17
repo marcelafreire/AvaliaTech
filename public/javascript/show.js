@@ -10,13 +10,13 @@ const reviewDivs = document.querySelectorAll('.editable');
 
 for (let i = 0; i < reviewDivs.length; i++) {
 	reviewDivs[i].setAttribute('id', 'review' + i);
-	reviewDivs[i].querySelector('.textReview');
-	reviewDivs[i].querySelector('.ratingReview');
 
+	//EDIT BUTTON
 	reviewDivs[i].querySelector('.edit').onclick = () => {
 		toggleTextAreaBoxEdit(i);
 	};
 
+	//SAVE BUTTON
 	reviewDivs[i].querySelector('.save').onclick = () => {
 		const reviewID = document.querySelector(`#review${i}`).querySelector('.reviewID').value;
 		const text = document.querySelector(`#review${i}`).querySelector(`.textReview`).value;
@@ -30,6 +30,7 @@ for (let i = 0; i < reviewDivs.length; i++) {
 			.catch((err) => console.log(err));
 	};
 
+	//DELETE BUTTON
 	reviewDivs[i].querySelector('.delete').onclick = () => {
 		const reviewID = document.querySelector(`#review${i}`).querySelector('.reviewID').value;
 		axios

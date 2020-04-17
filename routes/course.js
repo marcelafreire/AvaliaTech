@@ -97,6 +97,13 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 				if (review.writer && review.writer._id.toString() === req.user._id.toString()) {
 					review.isOwner = true;
 				}
+
+				let ratings = [];
+				for (let i = 0; i <= 5; i++) {
+					ratings.push({ value: i, isRating: review.rating === i });
+				}
+				review.ratings = ratings;
+
 				return review;
 			});
 

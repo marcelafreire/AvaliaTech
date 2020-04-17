@@ -26,7 +26,12 @@
     <br><br>
     <div>
         <label for="">Rating</label>
-        <input type="number" class="ratingReview" value="{{rating}}" disabled>
+        {{!-- <input type="number" class="ratingReview" value="{{rating}}" disabled> --}}
+        <select class="ratingReview" disabled>
+          {{#each ratings}}
+            <option value="{{value}}" {{#if isRating}}selected{{/if}}>{{value}}</option>
+          {{/each}}
+        </select>
     </div>
     <br>
     {{#if isOwner}}
@@ -35,7 +40,6 @@
       <button type="button" class="delete">Deletar</button>
       <br>
     {{/if}}
-
 </div>
 {{/each}}
 </ul>
