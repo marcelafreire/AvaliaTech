@@ -11,9 +11,9 @@ const User = require('./models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
-const bcrypt = require('bcrypt');
+const ensureLogin = require("connect-ensure-login");
+const MongoStore = require('connect-mongo')(session)
 const session = require('express-session');
-const ensureLogin = require('connect-ensure-login');
 
 //banco de dados
 mongoose
@@ -48,14 +48,17 @@ app.use(
 );
 app.use(cookieParser());
 
-app.use(
-	session({
-		secret: 'our-passport-local-strategy-app',
-		resave: true,
-		saveUninitialized: true,
-		ttl: 24 * 60 * 60
-	})
-);
+
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  }),
+  secret: "our-passport-local-strategy-app",
+  resave: false,
+  saveUninitialized: false,
+}));
+
 
 //Passport
 passport.serializeUser((user, cb) => {
@@ -143,36 +146,32 @@ passport.use(
 // social login facebook
 const FacebookStrategy = require('passport-facebook').Strategy;
 
-passport.use(
-	new FacebookStrategy(
-		{
-			clientID: process.env.FACEBOOK_APP_ID,
-			clientSecret: process.env.FACEBOOK_APP_SECRET,
-			callbackURL: 'http://localhost:3000/auth/facebook/callback'
-		},
-		function(accessToken, refreshToken, profile, done) {
-			User.findOne({
-				facebookID: profile.id
-			})
-				.then((user) => {
-					if (user) {
-						done(null, user);
-						return;
-					}
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  function (accessToken, refreshToken, profile, done) {
+    User.findOne({
+        facebookID: profile.id
+      })
+      .then(user => {
+        if (user) {
+          done(null, user);
+          return;
+        }
 
-					User.create({
-						facebookID: profile.id
-					})
-						.then((newUser) => {
-							done(null, newUser);
-						})
-						.catch((err) => done(err)); // closes User.create()
-				})
-				.catch((err) => done(err)); // closes User.findOne()
-		}
-	)
-);
-
+        User.create({
+            facebookID: profile.id
+          })
+          .then(newUser => {
+            done(null, newUser);
+          })
+          .catch(err => done(err)); // closes User.create()
+      })
+      .catch(err => done(err)); // closes User.findOne()
+  }));
+  
 //passport initialization
 app.use(passport.initialize());
 app.use(passport.session());

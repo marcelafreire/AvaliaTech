@@ -14,8 +14,9 @@ router.put('/api/review/:id', (req, res) => {
 	const { id } = req.params;
 	console.log(id);
 	Review.findOneAndUpdate({ _id: id }, { text, rating, writer:userId }, { new: true })
-		.then(review => {
-			res.json(review);
+		.then((review) => {
+              res.json(review)
+
 		})
 		.catch((err) => console.log(err));
 });

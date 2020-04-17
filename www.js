@@ -1,3 +1,12 @@
+require('dotenv').config();
+const passport = require("passport");
+const mongoClient = require("mongodb").MongoClient;
+mongoClient.connect(process.env.MONGODB_URI, function(err, conn){
+  if(err) { return console.log(err); }
+  console.log("conectou no banco de dados!");
+  global.db = conn.db(process.env.MONGO_DB);
+  //coloque todo o código antigo do www aqui dentro
+
 const http = require('http');
 let app = require('./app');
 
@@ -41,3 +50,4 @@ server.on('error', error => {
 server.listen(process.env.PORT, () => {
   console.log(`Listening on http://localhost:${process.env.PORT}`);
 });
+})
