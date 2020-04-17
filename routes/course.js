@@ -92,12 +92,21 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 			}
 		})
 		.then((course) => {
+			//Owner Logic
 			course.reviews = course.reviews.map((review) => {
 				if (review.writer && review.writer._id.toString() === req.user._id.toString()) {
 					review.isOwner = true;
 				}
 				return review;
 			});
+
+			//Average Calculation
+			course.avgRating =
+				course.reviews.reduce((acc, review) => {
+					return (acc += review.rating);
+				}, 0) / course.reviews.length;
+			course.avgRating = course.avgRating.toFixed(2);
+
 			res.render('course/show', {
 				course,
 				user: req.user
@@ -151,6 +160,20 @@ router.get('/course/delete/:id', (req, res) => {
 			console.log(course);
 			res.redirect('/course/list');
 		})
+		.catch((err) => console.log(err));
+});
+
+router.get('/course/avg/:id', (req, res) => {
+	const { id } = req.params;
+	Course.find({ _id: id })
+		.populate({
+			path: 'reviews',
+			populate: {
+				path: 'writer',
+				model: 'User'
+			}
+		})
+		.then((course) => {})
 		.catch((err) => console.log(err));
 });
 
