@@ -14,6 +14,7 @@ const flash = require("connect-flash");
 const bcrypt = require('bcrypt');
 const session = require('express-session')
 const ensureLogin = require("connect-ensure-login");
+const MongoStore = require('connect-mongo')(session)
 
 
 
@@ -45,11 +46,15 @@ app.use(cookieParser());
 
 
 app.use(session({
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  }),
   secret: "our-passport-local-strategy-app",
-  resave: true,
-  saveUninitialized: true,
-  ttl: 24 * 60 * 60
+  resave: false,
+  saveUninitialized: false,
 }));
+
 
 //Passport
 passport.serializeUser((user, cb) => {
@@ -154,12 +159,10 @@ passport.use(new FacebookStrategy({
       .catch(err => done(err)); // closes User.findOne()
   }));
   
-
 //passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
-
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

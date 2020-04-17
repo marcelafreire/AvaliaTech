@@ -14,18 +14,8 @@ router.put('/api/review/:id', (req, res) => {
 	const { id } = req.params;
 	console.log(id);
 	Review.findOneAndUpdate({ _id: id }, { text, rating, writer:userId }, { new: true })
-		.then(review => {
-            const managedReviews = review.map(review => {
-                if (review.writer && review.writer.toString() === req.user._id.toString()) {
-                  review.isOwner = true;
-                }
-                return review;
-              });
-              res.json(review, {
-                review: managedReviews,
-                user: req.user,
-              });
-			// res.json(review);
+		.then((review) => {
+              res.json(review)
 		})
 		.catch((err) => console.log(err));
 });

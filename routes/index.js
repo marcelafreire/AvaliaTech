@@ -3,9 +3,6 @@ const router = express.Router();
 const Course = require('../models/course');
 const User = require('../models/user');
 
-// router.get('/', (req, res) => {
-// res.render('index')
-// })
 
 router.get('/', (req, res) => {
     Course.find()

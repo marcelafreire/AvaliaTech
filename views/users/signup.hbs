@@ -1,9 +1,9 @@
 <form id="form" action="/signup" method="POST">
   <label for="username">Nome</label><br>
   <input type="text" name="username" placeholder="Your username">
-
+   <input type="hidden" name="imgPath" value="{{imgPath}}">
   <label for="">E-mail</label>
-  <input type="text" name="email" id="email">
+  <input type="email" name="email" id="email">
 
   <label for="password">Senha</label><br>
   <input type="password" name="password" placeholder="********">
@@ -22,29 +22,3 @@
 </form>
 
 
-
-{{!-- <script>
-  document.getElementById('form')addEventListener('submit', e => {
-    e.preventDefault();
-
-    const username = document.querySelector('#edit1').value;
-    const email = document.querySelector('#edit2').value;
-    const captcha = document.querySelector('#edit3').value;
-
-
-    return fetch('/login', {
-      method: 'POST',
-      headers: { 
-        'Accept: application/json, text/plain, */*',
-        'Content-type': 'application/json' 
-        },
-      body: JSON.stringify({ username, email, captcha })
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        alert(data.msg);
-        if (data.success) return location.reload();
-      });
-  });
-</script> --}}
