@@ -1,24 +1,24 @@
 <h1>List</h1>
 
 {{#if institution}}
+<br>
 <h1>Instituição: {{ institution }}</h1>
 {{/if}}
 
-<br><br>
 {{#if category}}
+<br>
 <h1>Categoria: {{ category }}</h1>
+{{/if}}
+
+{{#if stringQuery}}
+<br>
+<h1>Procurar por: {{ stringQuery }}</h1>
 {{/if}}
 
 <ul>
     {{#each courses}}
         <li>
             <h4><a href="/course/{{_id}}">{{name}}</a></h4>
-            {{!-- <h4>Instituição: {{institution}}</h4>
-            <h4>Valor: {{value}}</h4>
-            <h4>Duração: {{duration}} horas</h4>
-            <h4>Formato: {{format}}</h4>
-            <h4>Categoria: {{category}}</h4>
-            <br> --}}
         </li>
     {{/each}}
 </ul>

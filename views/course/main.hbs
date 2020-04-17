@@ -1,6 +1,15 @@
 <h1>Main</h1>
 
+<a href="/course/add"><button>Adicione um curso</button></a>
+<br><br>
 <a href="/course/list"><button>Mostrar todos os cursos</button></a>
+
+<br><br>
+<form action="/course/list">
+    <label for="stringQuery">Procurar por: </label>
+    <input type="text" name="stringQuery">
+    <button type="submit">Procurar</button>
+</form>
 
 <br><br>
 <form action="/course/list">
