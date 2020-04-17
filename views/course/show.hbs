@@ -12,7 +12,7 @@
 <h4>Duração: {{duration}} horas</h4>
 <h4>Formato: {{format}}</h4>
 <h4>Categoria: {{category}}</h4>
-<h4>Média: {{avgRating}}</h4>
+<h4 id="avg"></h4>
 <br>
 <ul>
 
@@ -26,7 +26,6 @@
     <br><br>
     <div>
         <label for="">Rating</label>
-        {{!-- <input type="number" class="ratingReview" value="{{rating}}" disabled> --}}
         <select class="ratingReview" disabled>
           {{#each ratings}}
             <option value="{{value}}" {{#if isRating}}selected{{/if}}>{{value}}</option>
@@ -50,8 +49,14 @@
   <textarea type="text" name="text"></textarea>
     
   <label for="">Rating</label>
-  <input type="number" name="rating"  rows="1" cols="2"></input>
-
+  <select name="rating">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+    </select>
   <button type="submit">Adicionar</button>
 
 {{/with}}

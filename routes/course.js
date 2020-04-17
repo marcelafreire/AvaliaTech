@@ -26,7 +26,7 @@ router.get('/course', (req, res) => {
 });
 
 router.get('/course/list', (req, res) => {
-	const { category, institution } = req.query;
+	const { category, institution, stringQuery } = req.query;
 
 	if (category) {
 		Course.find({ category })
@@ -36,10 +36,17 @@ router.get('/course/list', (req, res) => {
 			})
 			.catch((err) => console.log(err));
 	} else if (institution) {
-		Course.find({ institution })
+		Course.find({ institution: { $regex: institution, $options: 'i' } })
 			.then((courses) => {
 				console.log(courses);
 				res.render('course/list', { institution, courses });
+			})
+			.catch((err) => console.log(err));
+	} else if (stringQuery) {
+		Course.find({ name: { $regex: stringQuery, $options: 'i' } })
+			.then((courses) => {
+				console.log(courses);
+				res.render('course/list', { stringQuery, courses });
 			})
 			.catch((err) => console.log(err));
 	} else {
@@ -92,7 +99,7 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 			}
 		})
 		.then((course) => {
-			//Owner Logic
+			//Owner Logic and Ratings
 			course.reviews = course.reviews.map((review) => {
 				if (review.writer && review.writer._id.toString() === req.user._id.toString()) {
 					review.isOwner = true;
@@ -103,16 +110,8 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 					ratings.push({ value: i, isRating: review.rating === i });
 				}
 				review.ratings = ratings;
-
 				return review;
 			});
-
-			//Average Calculation
-			course.avgRating =
-				course.reviews.reduce((acc, review) => {
-					return (acc += review.rating);
-				}, 0) / course.reviews.length;
-			course.avgRating = course.avgRating.toFixed(2);
 
 			res.render('course/show', {
 				course,

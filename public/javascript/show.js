@@ -6,6 +6,18 @@ const toggleTextAreaBoxEdit = (idx) => {
 	reviewDiv.querySelector('.edit').toggleAttribute('hidden');
 };
 
+const calculateAvgAndShow = () => {
+	const ratingsHTML = document.querySelectorAll('.ratingReview');
+	let sum = 0;
+	for (let i = 0; i < ratingsHTML.length; i++) {
+		sum += parseInt(ratingsHTML[i].value);
+		console.log(sum);
+	}
+	const avg = sum / ratingsHTML.length;
+	document.querySelector('#avg').innerText = `Média: ${avg}`;
+};
+calculateAvgAndShow();
+
 const reviewDivs = document.querySelectorAll('.editable');
 
 for (let i = 0; i < reviewDivs.length; i++) {
@@ -26,6 +38,7 @@ for (let i = 0; i < reviewDivs.length; i++) {
 			.then((response) => {
 				console.log(response.data);
 				toggleTextAreaBoxEdit(i);
+				calculateAvgAndShow();
 			})
 			.catch((err) => console.log(err));
 	};
