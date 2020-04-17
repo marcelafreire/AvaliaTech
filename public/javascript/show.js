@@ -1,25 +1,26 @@
 const toggleTextAreaBoxEdit = (idx) => {
-	document.querySelector(`#textReview` + idx).toggleAttribute('disabled');
-	document.querySelector(`#ratingReview` + idx).toggleAttribute('disabled');
-	document.querySelector('#save' + idx).toggleAttribute('hidden');
-	document.querySelector('#edit' + idx).toggleAttribute('hidden');
+	const reviewDiv = document.querySelector('#review' + idx);
+	reviewDiv.querySelector(`.textReview`).toggleAttribute('disabled');
+	reviewDiv.querySelector(`.ratingReview`).toggleAttribute('disabled');
+	reviewDiv.querySelector('.save').toggleAttribute('hidden');
+	reviewDiv.querySelector('.edit').toggleAttribute('hidden');
 };
 
-const editButtons = document.querySelectorAll('.edit');
+const reviewDivs = document.querySelectorAll('.editable');
 
-for (let i = 0; i < editButtons.length; i++) {
-	editButtons[i].onclick = () => {
+for (let i = 0; i < reviewDivs.length; i++) {
+	reviewDivs[i].setAttribute('id', 'review' + i);
+	reviewDivs[i].querySelector('.textReview');
+	reviewDivs[i].querySelector('.ratingReview');
+
+	reviewDivs[i].querySelector('.edit').onclick = () => {
 		toggleTextAreaBoxEdit(i);
 	};
-}
 
-const saveButtons = document.querySelectorAll('.save');
-
-for (let i = 0; i < saveButtons.length; i++) {
-	saveButtons[i].onclick = () => {
+	reviewDivs[i].querySelector('.save').onclick = () => {
 		const reviewID = document.querySelector(`#review${i}`).querySelector('.reviewID').value;
-		const text = document.querySelector(`#review${i}`).querySelector(`#textReview${i}`).value;
-		const rating = document.querySelector(`#review${i}`).querySelector(`#ratingReview${i}`).value;
+		const text = document.querySelector(`#review${i}`).querySelector(`.textReview`).value;
+		const rating = document.querySelector(`#review${i}`).querySelector(`.ratingReview`).value;
 		axios
 			.put(`http://localhost:3000/api/review/${reviewID}`, { text, rating })
 			.then((response) => {
@@ -28,12 +29,8 @@ for (let i = 0; i < saveButtons.length; i++) {
 			})
 			.catch((err) => console.log(err));
 	};
-}
 
-const deleteButtons = document.querySelectorAll('.delete');
-
-for (let i = 0; i < deleteButtons.length; i++) {
-	deleteButtons[i].onclick = () => {
+	reviewDivs[i].querySelector('.delete').onclick = () => {
 		const reviewID = document.querySelector(`#review${i}`).querySelector('.reviewID').value;
 		axios
 			.delete(`http://localhost:3000/api/review/${reviewID}`)

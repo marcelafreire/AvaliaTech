@@ -163,18 +163,4 @@ router.get('/course/delete/:id', (req, res) => {
 		.catch((err) => console.log(err));
 });
 
-router.get('/course/avg/:id', (req, res) => {
-	const { id } = req.params;
-	Course.find({ _id: id })
-		.populate({
-			path: 'reviews',
-			populate: {
-				path: 'writer',
-				model: 'User'
-			}
-		})
-		.then((course) => {})
-		.catch((err) => console.log(err));
-});
-
 module.exports = router;

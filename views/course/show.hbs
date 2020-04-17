@@ -16,25 +16,24 @@
 <br>
 <ul>
 
-
 {{#each reviews}}
-<div id="review{{@index}}">
+<div {{#if isOwner}}class="editable"{{/if}} >
     <h2>{{writer.username}}</h2>
 
     <input type="text" name="id" class="reviewID" value="{{_id}}" hidden>
-    <textarea id="textReview{{@index}}" cols="100" rows="3" disabled>{{text}}</textarea>
+    <textarea cols="100" class="textReview" rows="3" disabled>{{text}}</textarea>
 
     <br><br>
     <div>
         <label for="">Rating</label>
-        <input type="text" id="ratingReview{{@index}}" value="{{rating}}" disabled>
+        <input type="number" class="ratingReview" value="{{rating}}" disabled>
     </div>
     <br>
     {{#if isOwner}}
-    <button type="button" id="edit{{@index}}" class="edit">Editar</button>
-    <button type="button" id="save{{@index}}" class="save" hidden>Salvar</button>
-    <button type="button" id="delete{{@index}}" class="delete">Deletar</button>
-    <br>
+      <button type="button" class="edit">Editar</button>
+      <button type="button" class="save" hidden>Salvar</button>
+      <button type="button" class="delete">Deletar</button>
+      <br>
     {{/if}}
 
 </div>
@@ -47,9 +46,9 @@
   <textarea type="text" name="text"></textarea>
     
   <label for="">Rating</label>
-  <input type="text" name="rating"  rows="1" cols="2"></input>
+  <input type="number" name="rating"  rows="1" cols="2"></input>
 
-  <button type="submit">ADD</button>
+  <button type="submit">Adicionar</button>
 
 {{/with}}
 
