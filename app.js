@@ -14,7 +14,7 @@ const flash = require('connect-flash');
 const ensureLogin = require("connect-ensure-login");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session)
-
+const bcrypt = require('bcrypt');
 
 //banco de dados
 mongoose
