@@ -17,8 +17,6 @@ let findCourse =
 		});
 
 
-
-
 let findUser = id => {
 
 	return User.findOne({_id: id})
@@ -32,7 +30,10 @@ let findUser = id => {
 
 
 	  router.get('/', (req, res) => {
-		const id = req.user._id;
+		let id = '';
+		if(req.user) {
+			id = req.user._id;
+		}
 		Promise.all([findUser(id), findCourse])
 		.then(element => {
 			res.render('index', {user: element[0], course: element[1]});
