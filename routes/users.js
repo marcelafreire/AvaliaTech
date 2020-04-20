@@ -125,25 +125,20 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
     })
 });
 
-//ABOUT
-router.get('/about', (req, res) => {
-    res.render('home/about');
-})
-
 //PROFILE
 
   router.get('/profile/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
     const {id} = req.params;
-    // console.log(imgPath)
-    User.findById(id)
+
+    User.findOne({ _id: id })
       .then(user => {
-        console.log(user)
-        res.render('users/profile', user);
+        res.render(`users/profile`, user);
       })
       .catch(error => {
         console.log('Error ', error);
       })
     });
+
   // editar infos
   router.post('/profile-edit', uploadCloud.single('photo'), ensureLogin.ensureLoggedIn(), (req, res) => {
     const {username, email} = req.body;
