@@ -15,6 +15,8 @@ const ensureLogin = require('connect-ensure-login');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const bcrypt = require('bcrypt');
+const bcryptSalt = 10;
+
 
 //banco de dados
 mongoose

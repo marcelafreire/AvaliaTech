@@ -1,3 +1,4 @@
+
 <section class="banner-home">
     <nav class="nav">
         <div id="nav-1" class="div-nav">
@@ -13,10 +14,22 @@
             </form>
         </div>
 
+        {{#unless user}}
         <div id="nav-2" class="div-nav">
             <a id="login" href="/login">Login</a>
             <a id="signup" href="/signup">Cadastre-se</a>
         </div>
+        {{/unless}}
+
+    {{#if user}}
+    <div id="nav-2" class="div-nav">
+        <a id="login" href="/logout">logout</a>
+        <a id="login" href="/profile/{{id}}">perfil</a>
+    </div>
+    {{/if}} 
+
+
+
     </nav>
 
     <div class="title">

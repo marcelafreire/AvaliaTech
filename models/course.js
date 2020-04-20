@@ -6,6 +6,7 @@ const courseSchema = new Schema({
 	institution: String,
 	image: String,
 	value: Number,
+	link: String,
 	duration: Number, //Duration in hours
 	format: { type: String, enum: [ 'online', 'presencial' ] },
 	category: {
