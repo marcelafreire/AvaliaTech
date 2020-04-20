@@ -36,15 +36,22 @@ router.delete('/api/review/:id', (req, res) => {
 router.post('/reviews/add/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const userId = req.user._id
 	const {text, rating} = req.body;
-    const {id} = req.params
+	const {id} = req.params
+
+
+	// if (text === "" || rating === "6") {
+	// 	res.redirect(`/course/${id}`, {errorMessage: "adicione avaliação e nota"});
+	// 	return;
+	// }
 
 	User.findOne({_id: userId})
 	.then(user => {	
-        console.log(user)
+		console.log(user)
 
 	Review.create({text, rating, writer:user})
 	.then(review => {
 		Course.findOneAndUpdate({_id: id}, {$push: { reviews: review}})
+		
 		.then(course => {
 			res.redirect(`/course/${course._id}`)
 		})

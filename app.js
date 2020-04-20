@@ -11,9 +11,12 @@ const User = require('./models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
+const session = require('express-session');
 const ensureLogin = require("connect-ensure-login");
 const MongoStore = require('connect-mongo')(session)
-const session = require('express-session');
+const bcrypt = require('bcrypt');
+const bcryptSalt = 10;
+
 
 //banco de dados
 mongoose
