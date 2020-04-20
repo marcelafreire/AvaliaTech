@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheet/style.css" media="screen" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-a11y="true"></script>
 </head>
 <body>
-    <a href="/">Home</a>
+    {{!-- <a href="/">Home</a>
     <a href="/login">Login</a>
     <a href="/signup">Cadastre-se</a>
     <a href="/logout">logout</a>
@@ -17,8 +19,13 @@
 
     {{#with user}}
         <a href="/profile/{{_id}}">Minha conta</a>
-    {{/with}}
+    {{/with}} --}}
     
     {{{body}}}
+
+      <footer class="footer">
+        <img src="../images/logo-footer.png">
+
+    </footer>
 </body>
 </html>

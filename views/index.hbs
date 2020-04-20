@@ -1,14 +1,47 @@
-<h1>Avalia Tech</h1>
-<p>Avalie os cursos que você já fez na área da tecnologia e ajude outras pessoas a fazerem o curso certo</p>
+<section class="banner-home">
+    <nav class="nav">
+        <div id="nav-1" class="div-nav">
+            <a href="/"><img id="logo" src="../Images/logo.png"> </a>
+            <a href="/">Home</a>
+            <a href="/course">Cursos avaliados</a>
+        </div>
+        <div class="div-nav">
+            <form class="search" action="/course/list">
+                <label for="stringQuery"></label>
+                <input type="text" name="stringQuery" placeholder="Procurar por curso ou instituição">
+                <button id="btn-search" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
 
-<h2>Sobre</h2>
-<p></p>
+        <div id="nav-2" class="div-nav">
+            <a id="login" href="/login">Login</a>
+            <a id="signup" href="/signup">Cadastre-se</a>
+        </div>
+    </nav>
 
-<h2>Cursos Avaliados</h2>
-<ul>
-{{#each course}}
-<li>{{name}}</li>
-{{/each}}
-</ul>
+    <div class="title">
+        <h1>Avalie cursos na área da <span style="color: #63caa2">tecnologia</span></h1>
+        <p>Avalie cursos e encontre avaliações. </p>
+        <a href="/course"><button class="btn-banner">Encontrar avaliações</button></a>
+    </div>
 
-<a href="Outros cursos"><button>ver todos</button></a>
+</section>
+
+<section class="courses-home">
+
+    <h2>Cursos <span style="font-weight: 600">avaliados</span> </h2>
+    <div class="cards-home">
+        {{#each course}}
+        <div class="cards">
+            <a href="course/{{id}}"><h4>{{name}}</h4> 
+            <p><i class="fas fa-graduation-cap"></i>{{institution}}</p>
+            </a>
+        </div>
+
+        {{/each}}
+
+    </div>
+
+    <a href="Outros cursos"><button class="btn-home">Ver mais</button></a>
+
+</section>
