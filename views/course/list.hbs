@@ -15,6 +15,11 @@
 <h1>Procurar por: {{ stringQuery }}</h1>
 {{/if}}
 
+{{#if userID}}
+<br>
+<h1>Procurar por: usuário</h1>
+{{/if}}
+
 <ul>
     {{#each courses}}
         <li>

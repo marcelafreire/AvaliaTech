@@ -5,6 +5,7 @@ const Course = require('../models/course');
 const User = require('../models/user');
 const Review = require('../models/review');
 const session = require('express-session');
+const mongoose = require('mongoose');
 
 const checkGuest = checkRoles('GUEST');
 const checkEditor = checkRoles('EDITOR');
@@ -22,11 +23,17 @@ function checkRoles(role) {
 }
 
 router.get('/course', (req, res) => {
-	res.render('course/main');
+	const userID = req.user._id;
+	console.log(userID);
+	User.findOne({ _id: userID })
+		.then((user) => {
+			res.render('course/main', { username: user.username, userID });
+		})
+		.catch((err) => console.log(err));
 });
 
 router.get('/course/list', (req, res) => {
-	const { category, institution, stringQuery } = req.query;
+	const { category, institution, stringQuery, userID } = req.query;
 
 	if (category) {
 		Course.find({ category })
@@ -47,6 +54,16 @@ router.get('/course/list', (req, res) => {
 			.then((courses) => {
 				console.log(courses);
 				res.render('course/list', { stringQuery, courses });
+			})
+			.catch((err) => console.log(err));
+	} else if (userID) {
+		Review.find({ writer: userID }, { _id: 1 })
+			.then((reviewsIDs) => {
+				Course.find({ reviews: { $in: reviewsIDs } })
+					.then((courses) => {
+						res.render('course/list', { userID, courses });
+					})
+					.catch((err) => console.log(err));
 			})
 			.catch((err) => console.log(err));
 	} else {
