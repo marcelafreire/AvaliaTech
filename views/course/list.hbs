@@ -20,6 +20,53 @@
 <h1>Procurar por: usuário</h1>
 {{/if}}
 
+<h3>{{userID}}</h3>
+
+<form action="/course/list">
+    <label for="name">Nome do Curso</label>
+    <input type="text" name="name">
+
+    <label for="institution">Instituição</label>
+    <input type="text" name="institution">
+
+    <span>Valor (</span>
+    <label for="minValue">min: </label>
+    <input type="number" name="minValue">
+    <label for="maxValue">max: </label>
+    <input type="number" name="maxValue">
+    <span>)</span>
+
+    <br><br>
+    <span>Duração do Curso em Horas (</span>
+    <label for="minDuration">min: </label>
+    <input type="number" name="minDuration">
+    <label for="maxDuration">max: </label>
+    <input type="number" name="maxDuration">
+    <span>)</span>
+
+    <label for="format">Formato</label>
+    <select name="format">
+            <option value="" selected></option>
+        {{#each formats}}
+            <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </select>
+
+    <label for="category">Categoria</label>
+    <select name="category">
+            <option value="" selected></option>
+        {{#each categories}}
+            <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </select>
+
+    <br><br>
+    <label for="findByUser">Procurar somente por cursos avaliados pelo usuário</label>
+    <input type="checkbox" name="findByUser">
+
+    <button type="submit">Procurar</button>
+</form>
+
 <ul>
     {{#each courses}}
         <li>

@@ -33,44 +33,70 @@ router.get('/course', (req, res) => {
 });
 
 router.get('/course/list', (req, res) => {
-	const { category, institution, stringQuery, userID } = req.query;
+	const { name, category, institution, minValue, maxValue, minDuration, maxDuration, format, findByUser } = req.query;
+	let userID;
+
+	let query = {};
+
+	if (name) {
+		query.name = { $regex: name, $options: 'i' };
+	}
 
 	if (category) {
-		Course.find({ category })
-			.then((courses) => {
-				console.log(courses);
-				res.render('course/list', { category, courses });
-			})
-			.catch((err) => console.log(err));
-	} else if (institution) {
-		Course.find({ institution: { $regex: institution, $options: 'i' } })
-			.then((courses) => {
-				console.log(courses);
-				res.render('course/list', { institution, courses });
-			})
-			.catch((err) => console.log(err));
-	} else if (stringQuery) {
-		Course.find({ name: { $regex: stringQuery, $options: 'i' } })
-			.then((courses) => {
-				console.log(courses);
-				res.render('course/list', { stringQuery, courses });
-			})
-			.catch((err) => console.log(err));
-	} else if (userID) {
-		Review.find({ writer: userID }, { _id: 1 })
-			.then((reviewsIDs) => {
-				Course.find({ reviews: { $in: reviewsIDs } })
-					.then((courses) => {
-						res.render('course/list', { userID, courses });
-					})
-					.catch((err) => console.log(err));
-			})
-			.catch((err) => console.log(err));
+		query.category = category;
+	}
+
+	if (institution) {
+		query.institution = { $regex: institution, $options: 'i' };
+	}
+
+	if (minValue && maxValue) {
+		query.value = { $gte: minValue, $lte: maxValue };
 	} else {
-		Course.find()
+		if (minValue) {
+			query.value = { $gte: minValue };
+		}
+		if (maxValue) {
+			query.value = { $lte: maxValue };
+		}
+	}
+
+	if (minDuration && maxDuration) {
+		query.duration = { $gte: minDuration, $lte: maxDuration };
+	} else {
+		if (minDuration) {
+			query.value = { $gte: minDuration };
+		}
+		if (maxDuration) {
+			query.value = { $lte: maxDuration };
+		}
+	}
+
+	if (format) {
+		query.format = format;
+	}
+
+	if (findByUser) {
+		if (req.user) {
+			userID = req.user._id;
+			Review.find({ writer: userID }, { _id: 1 })
+				.then((reviewsIDs) => {
+					query.reviews = { $in: reviewsIDs };
+					Course.find(query)
+						.then((courses) => {
+							res.render('course/list', { userID, courses });
+						})
+						.catch((err) => console.log(err));
+				})
+				.catch((err) => console.log(err));
+		}
+	} else {
+		Course.find(query)
 			.then((courses) => {
 				console.log(courses);
-				res.render('course/list', { courses });
+				const formats = Course.schema.path('format').enumValues;
+				const categories = Course.schema.path('category').enumValues;
+				res.render('course/list', { courses, formats, categories, userID });
 			})
 			.catch((err) => console.log(err));
 	}
