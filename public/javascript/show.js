@@ -34,7 +34,7 @@ for (let i = 0; i < reviewDivs.length; i++) {
 		const text = document.querySelector(`#review${i}`).querySelector(`.textReview`).value;
 		const rating = document.querySelector(`#review${i}`).querySelector(`.ratingReview`).value;
 		axios
-			.put(`http://localhost:3000/api/review/${reviewID}`, { text, rating })
+			.put(`${document.URL}/api/review/${reviewID}`, { text, rating })
 			.then((response) => {
 				console.log(response.data);
 				toggleTextAreaBoxEdit(i);
@@ -47,7 +47,7 @@ for (let i = 0; i < reviewDivs.length; i++) {
 	reviewDivs[i].querySelector('.delete').onclick = () => {
 		const reviewID = document.querySelector(`#review${i}`).querySelector('.reviewID').value;
 		axios
-			.delete(`http://localhost:3000/api/review/${reviewID}`)
+			.delete(`${document.URL}/api/review/${reviewID}`)
 			.then((response) => {
 				console.log(response.data);
 				const div = document.querySelector(`#review${i}`);

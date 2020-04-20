@@ -1,217 +1,203 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400;700;900&display=swap');
 
 body {
-    margin: 0rem;
-    font-family: 'Lato', sans-serif;
-    width: 100%;
+	margin: 0rem;
+	font-family: 'Lato', sans-serif;
+	width: 100%;
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 a:visited {
-    color: #060e41;
-  }
+	color: #060e41;
+}
 
 /* ----- HOME ----- */
 
 .banner-home {
-background-image: url(../Images/banner.png);
-background-position: center;
-background-size: cover;
-background-repeat: no-repeat;
-height: 45rem;
+	background-image: url(../images/banner.png);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 45rem;
+
 }
 
 .nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    height: 3.6rem;
-    color: #060e41;
-
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	height: 3.6rem;
+	color: #060e41;
 }
 
 .div-nav {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-around;
-    font-size: 0.9rem;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-around;
+	font-size: 0.9rem;
 }
 
 #nav-1 {
-width: 25rem;
+	width: 25rem;
 }
 
 #nav-2 {
-    width: 13rem;
+	width: 13rem;
 }
 
 #logo {
-    width: 8rem;
+	width: 8rem;
 }
 .search {
-    background-color: rgb(255, 255, 255) ;
-    border-radius: 0.8rem;
-    padding-left: 0.8rem;
+	background-color: rgb(255, 255, 255);
+	border-radius: 0.8rem;
+	padding-left: 0.8rem;
 }
 .search input {
-    border-radius: 0.8rem;
-    background-color: rgb(255, 255, 255);
-    border-color: rgb(255, 255, 255);
-    border-style: none;
-    width: 15rem;
-    height: 1.8rem;
-
+	border-radius: 0.8rem;
+	background-color: rgb(255, 255, 255);
+	border-color: rgb(255, 255, 255);
+	border-style: none;
+	width: 15rem;
+	height: 1.8rem;
 }
 
 #btn-search {
-    border-radius: 0.8rem;
-    background-color: #060e41;
-    height: 2rem;
-    width: 3rem;
-    color: white;
-    border-style: none;
+	border-radius: 0.8rem;
+	background-color: #060e41;
+	height: 2rem;
+	width: 3rem;
+	color: white;
+	border-style: none;
 }
 
 #login {
-    border-radius: 1rem;
-    border: 0.09rem solid white;
-    padding: 0.2rem 0.8rem;
+	border-radius: 1rem;
+	border: 0.09rem solid white;
+	padding: 0.2rem 0.8rem;
 }
 
-#signup{
-    border-radius: 1rem;
-    background-color: #060e41;
-    padding: 0.3rem 1rem;
-    color: white;
+#signup {
+	border-radius: 1rem;
+	background-color: #060e41;
+	padding: 0.3rem 1rem;
+	color: white;
 }
 
 .title {
-    /* width: 30rem;*/
-    height: 35rem; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* align-items: center; */
-    flex-wrap: wrap;
-    padding-left:  10rem;
+	/* width: 30rem;*/
+	height: 35rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	/* align-items: center; */
+	flex-wrap: wrap;
+	padding-left: 10rem;
 }
 
 .title h1 {
-font-size: 3rem;
-width: 19rem;
-text-align: left;
-font-weight: 900;
-line-height: 3.5rem;
-color: #060e41;
+	font-size: 3rem;
+	width: 19rem;
+	text-align: left;
+	font-weight: 900;
+	line-height: 3.5rem;
+	color: #060e41;
 }
 
 .title p {
-    font-size: 1.4rem;
-    width: 19rem;
-    text-align: left;
-    font-weight: normal;
-    padding-bottom: 1rem;
-    margin-top: -1rem;
-    font-weight: 400;
+	font-size: 1.4rem;
+	width: 19rem;
+	text-align: left;
+	font-weight: normal;
+	padding-bottom: 1rem;
+	margin-top: -1rem;
+	font-weight: 400;
 }
 
 .btn-banner {
-    background: rgb(99,202,162);
-    background: linear-gradient(-82deg, rgba(99,202,162,1) 0%, rgba(55,164,153,1) 100%);
-    border-radius: 2rem;
-    font-size: 0.9rem;
-    font-weight: 900;
-    border-style: none;
-    color: white;
-    padding: 0.8rem 1.5rem;
-    box-shadow: 1px 3px 50px 3px rgba(73,180,157,0.7);
+	background: rgb(99, 202, 162);
+	background: linear-gradient(-82deg, rgba(99, 202, 162, 1) 0%, rgba(55, 164, 153, 1) 100%);
+	border-radius: 2rem;
+	font-size: 0.9rem;
+	font-weight: 900;
+	border-style: none;
+	color: white;
+	padding: 0.8rem 1.5rem;
+	box-shadow: 1px 3px 50px 3px rgba(73, 180, 157, 0.7);
 }
 
 .courses-home {
-    background-color: #e0efe9;
-    height: 30rem;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 4rem;
-    padding-top: 3rem;
+	background-color: #e0efe9;
+	height: 30rem;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 4rem;
+	padding-top: 3rem;
 }
 
 .courses-home h2 {
-color: #060e41;
-font-size: 2rem;
-font-weight: 400;
+	color: #060e41;
+	font-size: 2rem;
+	font-weight: 400;
 }
-
-
 
 .footer {
-    display: flex;
-    background-color: #060e41;
-    height: 4rem;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	background-color: #060e41;
+	height: 4rem;
+	justify-content: center;
+	align-items: center;
 }
 
-.cards{
-    width: 8rem;
-    background-color: white;
-    margin: 1rem 1rem;
-    border-radius: 1rem;
-    padding: 0.5rem 1.5rem;
-    height: 12rem;
-    text-align: center;
-    flex-wrap: wrap;
-    color: rgb(37, 37, 37) ;
-    box-shadow: 0px 0px 40px 11px rgba(207,226,219,0.91);
-
+.cards {
+	width: 8rem;
+	background-color: white;
+	margin: 1rem 1rem;
+	border-radius: 1rem;
+	padding: 0.5rem 1.5rem;
+	height: 12rem;
+	text-align: center;
+	flex-wrap: wrap;
+	color: rgb(37, 37, 37);
+	box-shadow: 0px 0px 40px 11px rgba(207, 226, 219, 0.91);
 }
 
 .cards h4 {
-font-size: 1rem;
-font-weight: 400;
-color: rgb(37, 37, 37) ;
-
+	font-size: 1rem;
+	font-weight: 400;
+	color: rgb(37, 37, 37);
 }
 
 .cards p {
-    font-weight: 700;
-    color: #060e41;
-
+	font-weight: 700;
+	color: #060e41;
 }
 
 .fa-graduation-cap {
-color: #dc5b21;
-padding-right:0.3rem;
+	color: #dc5b21;
+	padding-right: 0.3rem;
 }
 
-
 .cards-home {
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
 .btn-home {
-    padding: 0.6rem 3rem;
-    font-size: 0.9rem;
-    background-color:#63caa2;
-    border-radius: 2rem;
-    border-style: none;
-    margin-top: 2rem;
-    font-weight: 700;
-    color:#060e41;
-    box-shadow: 0px 0px 37px -2px rgba(73,180,157,0.61);
+	padding: 0.6rem 3rem;
+	font-size: 0.9rem;
+	background-color: #63caa2;
+	border-radius: 2rem;
+	border-style: none;
+	margin-top: 2rem;
+	font-weight: 700;
+	color: #060e41;
+	box-shadow: 0px 0px 37px -2px rgba(73, 180, 157, 0.61);
 }
 
-
-
-
-
-
-
-
 .footer img {
-width: 7rem;
+	width: 7rem;
 }
