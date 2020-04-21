@@ -1,0 +1,66 @@
+<div class="course-form">
+            <div class="course-header"> 
+                <span class="course-header-text">{{#if isAdding}}Adicione um curso{{/if}}{{#if isEditing}}Editar{{/if}}</span>
+            </div>
+            <div class="course-body">
+                <div class="course-form-field">
+                    <label class="course-form-label" for="name">Nome do Curso</label>
+                    <input class="course-form-input course-form-input-text" type="text" name="name" value="{{course.name}}" required>
+                </div>
+                
+                <div class="course-form-field">
+                    <label class="course-form-label" for="institution">Instituição</label>
+                    <input class="course-form-input course-form-input-text" type="text" name="institution" value="{{course.institution}}" required>
+                </div>
+                
+                <div class="course-form-field">
+                    <label class="course-form-label" for="value">Valor</label>
+                    <input class="course-form-input course-form-input-number" type="number" name="value" value="{{course.value}}" required>
+                </div>
+                
+                <div class="course-form-field">
+                    <label class="course-form-label" for="duration">Duração do Curso em Horas </label>
+                    <input class="course-form-input course-form-input-number" type="number" name="duration" value="{{course.duration}}">
+                </div>
+                <div class="course-form-field">
+                    <label class="course-form-label" for="format">Formato</label>
+                    <select class="course-form-input course-form-input-select" name="format">
+                        {{#each formats}}
+                            <option value="{{format}}" {{#if selected}} selected {{/if}}>{{format}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="course-form-field">
+                    <label class="course-form-label" for="category">Categoria</label>
+                    <select class="course-form-input course-form-input-select" name="category">
+                        {{#each categories}}
+                            <option value="{{category}}" {{#if selected}} selected{{/if}}>{{category}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="course-form-field">
+                    <label class="course-form-label" for="value">Link do curso</label>
+                    <input class="course-form-input course-form-input-text" type="text" name="link" rows="1" cols="30" value="{{course.link}}">
+                </div>
+                {{#if isAdding}}
+                    <div class="course-form-field">
+                        <label class="course-form-label">Avaliação</label>
+                        <textarea class="course-form-input" name="text" rows="15" cols="60" required></textarea>
+                    </div>
+                    <div class="course-form-field">
+                        <label class="course-form-label" for="rating">Nota</label>
+                        <select class="course-form-input course-form-input-select" name="rating">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                {{/if}}
+                <div class="course-button-container">
+                    <button class="course-button" type="submit">{{#if isAdding}}Adicionar{{/if}}{{#if isEditing}}Salvar{{/if}}</button>
+                </div>
+            </div>
+        </div> 

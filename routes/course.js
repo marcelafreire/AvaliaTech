@@ -7,23 +7,21 @@ const Review = require('../models/review');
 const session = require('express-session');
 const mongoose = require('mongoose');
 
-
 // ROLES control
 const checkRoles = (role) => {
 	return (req, res, next) => {
-	  if (req.isAuthenticated() && req.user.role === role) {
-		return next();
-	  } else {
-		req.logout();
-		res.redirect('/course')
-	  }
-	}
-  }
-  
-  const checkGuest = checkRoles('GUEST');
-  const checkEditor = checkRoles('EDITOR');
-  const checkAdmin = checkRoles('ADMIN');
+		if (req.isAuthenticated() && req.user.role === role) {
+			return next();
+		} else {
+			req.logout();
+			res.redirect('/course');
+		}
+	};
+};
 
+const checkGuest = checkRoles('GUEST');
+const checkEditor = checkRoles('EDITOR');
+const checkAdmin = checkRoles('ADMIN');
 
 router.get('/course', (req, res) => {
 	const userID = req.user._id;
@@ -106,9 +104,15 @@ router.get('/course/list', (req, res) => {
 });
 
 router.get('/course/add', (req, res) => {
-	const formats = Course.schema.path('format').enumValues;
-	const categories = Course.schema.path('category').enumValues;
-	res.render('course/add', { formats, categories });
+	const formats = Course.schema.path('format').enumValues.map((format) => {
+		return { format, selected: false };
+	});
+	const categories = Course.schema.path('category').enumValues.map((category) => {
+		return { category, selected: false };
+	});
+	const isAdding = true;
+	console.log('foi');
+	res.render('course/add', { formats, categories, isAdding });
 });
 
 router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
@@ -147,7 +151,10 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 		.then((course) => {
 			//Owner Logic and Ratings
 			course.reviews = course.reviews.map((review) => {
-				if (review.writer && review.writer._id.toString() === req.user._id.toString() || req.user.role === "ADMIN") {
+				if (
+					(review.writer && review.writer._id.toString() === req.user._id.toString()) ||
+					req.user.role === 'ADMIN'
+				) {
 					review.isOwner = true;
 				}
 
@@ -185,7 +192,8 @@ router.get('/course/edit/:id', checkRoles('ADMIN'), (req, res) => {
 			const categories = Course.schema.path('category').enumValues.map((category) => {
 				return { category, selected: course.category === category };
 			});
-			res.render('course/edit', { course, categories, formats });
+			const isEditing = true;
+			res.render('course/edit', { course, categories, formats, isEditing });
 		})
 		.catch((err) => console.log(err));
 });
@@ -195,7 +203,7 @@ router.post('/course/edit/:id', (req, res) => {
 	const { id } = req.params;
 
 	const editCourse = { name, institution, value, duration, link, format, category };
-	
+
 	Course.findOneAndUpdate({ _id: id }, editCourse, { new: true })
 		.then((course) => {
 			console.log(course);

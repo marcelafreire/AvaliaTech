@@ -1,0 +1,8 @@
+.course {
+	display: flex;
+	justify-content: center;
+}
+
+.course-container {
+	margin: 70px;
+}

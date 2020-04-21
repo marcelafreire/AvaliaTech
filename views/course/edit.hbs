@@ -1,5 +1,8 @@
-<h1>Editar Curso</h1>
-<form action="/course/edit/{{course._id}}" method="POST">
-    {{> coursePartial}}
-    <button type="submit">Salvar Curso</button>
-</form>
+{{> navbarPartial}}
+<div class="course">
+    <form action="/course/edit/{{course._id}}" method="POST">
+        <div class="course-container">
+            {{> courseForm}}
+        </div>
+    </form>
+</div>

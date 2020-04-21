@@ -1,59 +1,8 @@
-<h1>Adicionar Curso</h1>
-
-<form action="/course/add" method="POST">
-
-    <label for="name">Nome do Curso</label>
-    <input type="text" name="name" required>
-    <br><br>
-
-    <label for="institution">Instituição</label>
-    <input type="text" name="institution" required>
-    <br><br>
-
-    <label for="value">Valor</label>
-    <input type="number" name="value" required>
-    <br><br>
-
-    <label for="duration">Duração do Curso em Horas </label>
-    <input type="number" name="duration">
-    <br><br>
-
-    <label for="format">Formato</label>
-    <select name="format">
-        {{#each formats}}
-            <option value="{{this}}">{{this}}</option>
-        {{/each}}
-    </select>
-    <br><br>
-
-    <label for="category">Categoria</label>
-    <select name="category">
-        {{#each categories}}
-            <option value="{{this}}" >{{this}}</option>
-        {{/each}}
-    </select>
-    <br><br>
-
-        <label for="value">Link do curso</label>
-    <input type="text" name="link" rows="1" cols="30">
-    <br><br>
-
-    <label>Comentário</label>
-    <br>
-    <textarea name="text" rows="4" cols="50" required></textarea>
-    <br><br>
-
-    <label for="rating">Nota</label>
-    {{!-- <input type="number" name="rating"> --}}
-    <select name="rating">
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-    </select>
-    <br><br>
-
-    <button type="submit">Adicionar Curso</button>
-</form>
+{{> navbarPartial}}
+<div class="course">
+    <form action="/course/add" method="POST">
+        <div class="course-container">
+            {{> courseForm}}
+        </div>
+    </form>
+</div>
