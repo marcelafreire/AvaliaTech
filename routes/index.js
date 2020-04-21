@@ -18,9 +18,9 @@ let findCourse =
 
 
 let findUser = id => {
-
 	return User.findOne({_id: id})
 	  .then(user => {
+		console.log(user)
 		return user
 	  })
 	  .catch(error => {
@@ -36,6 +36,7 @@ let findUser = id => {
 		}
 		Promise.all([findUser(id), findCourse])
 		.then(element => {
+			console.log(element[0])
 			res.render('index', {user: element[0], course: element[1]});
 		})
 		.catch(err => console.error('Error when promising all', err));	  

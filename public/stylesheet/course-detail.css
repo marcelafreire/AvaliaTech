@@ -1,0 +1,97 @@
+#nav {
+    background-color: #ddede6;
+    height: 5rem;
+}
+
+.section-course {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-bottom: 5rem;
+}
+.section-course-div {
+    background-color: white;
+    width: 50rem;
+    border-radius: 0.5rem;
+    height: 35rem;
+    box-shadow: 0px 0px 29px -1px rgba(0,0,0,0.1);
+    margin-top: 3rem;
+
+}
+
+.title-course {
+    background-color:  #63CAA2;
+    width: 50rem;
+    height: 8rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+}
+.title-course h2 {
+    font-weight: 500;
+}
+
+.course.detail-edit {
+    background-color: #060E41;
+    color: white;
+    border-radius: 1rem;
+    padding: 0.3rem 1rem;
+
+}
+
+.course-details-infos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.div-infos-course {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    height: 7rem;
+    margin: 1rem 3rem;
+    color: #DC5B21;
+}
+
+.div-infos-course h4 {
+   font-size: 1rem;
+   font-weight: 500;
+   margin-bottom: -0.8rem;
+   color: rgb(19, 19, 19);
+}
+
+.div-infos-course h3 {
+    color: #060E41;
+    text-align: center;
+}
+
+.btn-course-site {
+    background-color: #63CAA2;
+    padding: 0.5rem 2rem;
+    text-align: center;
+    border-radius: 1rem;
+    margin-top: 1.9rem;
+    color: white;
+}
+
+
+
+.course-reviews-title h3 {
+    padding-left: 1rem;
+    color: rgb(102, 102, 102);
+    text-align: left;
+
+}

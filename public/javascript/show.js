@@ -14,7 +14,7 @@ const calculateAvgAndShow = () => {
 		console.log(sum);
 	}
 	const avg = sum / ratingsHTML.length;
-	document.querySelector('#avg').innerText = `Média: ${avg}`;
+	document.querySelector('#avg').innerText = `${avg}`;
 };
 calculateAvgAndShow();
 

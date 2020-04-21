@@ -1,24 +1,94 @@
+<nav id="nav" class="nav">
+  <div id="nav-1" class="div-nav">
+    <a href="/"><img id="logo" src="../images/logo.png"> </a>
+    <a href="/">Home</a>
+    <a href="/course">Cursos avaliados</a>
+  </div>
+  <div class="div-nav">
+    <form class="search" action="/course/list">
+      <label for="stringQuery"></label>
+      <input type="text" name="stringQuery" placeholder="Procurar por curso ou instituição">
+      <button id="btn-search" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
 
-{{#with course}}
-<h1>{{name}}</h1>
-<br>
+  {{#unless user}}
+  <div id="nav-2" class="div-nav">
+    <a id="login" href="/login">Login</a>
+    <a id="signup" href="/signup">Cadastre-se</a>
+  </div>
+  {{/unless}}
 
-<a href="/course/edit/{{_id}}">Edit</a>
-<a href="/course/delete/{{_id}}">Delete</a>
+  {{#if user}}
+  <div id="nav-2" class="div-nav">
+    <a id="login" href="/logout">logout</a>
+    <a id="login" href="/profile/{{user._id}}">perfil</a>
+  </div>
+  {{/if}}
+</nav>
 
-<br>
-<h4>Instituição: {{institution}}</h4>
-<h4>Valor: {{value}}</h4>
-<h4>Duração: {{duration}} horas</h4>
-<h4>Formato: {{format}}</h4>
-<h4>Categoria: {{category}}</h4>
-<h4>Link para o curso: <a href="{{link}}">Ver curso</a></h4>
-<h4 id="avg"></h4>
-<br>
-<ul>
 
-{{#each reviews}}
-<div {{#if isOwner}}class="editable"{{/if}} >
+<section class="section-course">
+  <div class="section-course-div">
+    {{#with course}}
+    <div class="title-course">
+      <h2>{{name}}</h2><br>
+      {{!-- <div>
+        <a class="course.detail-edit" href="/course/edit/{{_id}}">Edit</a>
+        <a href="/course/delete/{{_id}}">Delete</a>
+      </div> --}}
+      <br>
+    </div>
+
+    <div class="course-details-infos">
+      <br>
+      <div class="div-infos-course">
+        <i class="fas fa-graduation-cap"></i>
+        <h4>Instituição:</h4>
+        <h3>{{institution}}</h3>
+      </div>
+      <div class="div-infos-course">
+        <i class="fas fa-money-check-alt"></i>
+        <h4>Valor:</h4>
+        <h3>{{value}}</h3>
+      </div>
+      <div class="div-infos-course">
+        <i class="fas fa-clock"></i>
+        <h4>Duração:</h4>
+        <h3>{{duration}} horas</h3>
+      </div>
+      <div>
+      </div>
+      <div class="div-infos-course">
+        <i class="fas fa-play-circle"></i>
+        <h4>Formato:</h4>
+        <h3>{{format}}</h3>
+      </div>
+      <div class="div-infos-course">
+        <i class="fas fa-list-alt"></i>
+        <h4>Categoria:</h4>
+        <h3>{{category}}</h3>
+      </div>
+
+      <div class="div-infos-course">
+        <i class="fas fa-star"></i>
+        <h4>Média:</h4>
+        <h3 id="avg"></h3>
+      </div>
+
+        <a class="btn-course-site" href="{{link}}">Ver curso</a>
+
+      <br>
+      <ul>
+    </div>
+  </div>
+
+
+<div class="course-reviews-title">
+  <h3>Avaliações</h3>
+</div>
+  {{#each reviews}}
+  <div {{#if isOwner}}class="editable" {{/if}}>
     <h2>{{writer.username}}</h2>
 
     <input type="text" name="id" class="reviewID" value="{{_id}}" hidden>
@@ -26,48 +96,48 @@
 
     <br><br>
     <div>
-        <label for="">Rating</label>
-        <select class="ratingReview" disabled>
-          {{#each ratings}}
-            <option value="{{value}}" {{#if isRating}}selected{{/if}}>{{value}}</option>
-          {{/each}}
-        </select>
+      <label for="">Rating</label>
+      <select class="ratingReview" disabled>
+        {{#each ratings}}
+        <option value="{{value}}" {{#if isRating}}selected{{/if}}>{{value}}</option>
+        {{/each}}
+      </select>
     </div>
     <br>
     {{#if isOwner}}
-      <button type="button" class="edit">Editar</button>
-      <button type="button" class="save" hidden>Salvar</button>
-      <button type="button" class="delete">Deletar</button>
-      <br>
+    <button type="button" class="edit">Editar</button>
+    <button type="button" class="save" hidden>Salvar</button>
+    <button type="button" class="delete">Deletar</button>
+    <br>
     {{/if}}
-</div>
-{{/each}}
-</ul>
+  </div>
+  {{/each}}
+  </ul>
 
 
- <p>Add a review</p>
-<form action="/reviews/add/{{_id}}" method="post">
-<h2>{{writer.username}}</h2>  
-<label for="">Avaliação:</label>
+  <p>Add a review</p>
+  <form action="/reviews/add/{{_id}}" method="post">
+    <h2>{{writer.username}}</h2>
+    <label for="">Avaliação:</label>
 
-  <textarea type="text" name="text" required></textarea>
-    
-  <label for="">Rating</label>
-  <select name="rating" required>
-          {{!-- <option value="6">--</option> --}}
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
+    <textarea type="text" name="text" required></textarea>
+
+    <label for="">Rating</label>
+    <select name="rating" required>
+      {{!-- <option value="6">--</option> --}}
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
     </select>
 
-  <button type="submit">Adicionar</button>
+    <button type="submit">Adicionar</button>
 
-{{/with}}
+    {{/with}}
+</section>
 
-   
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 <script src="/javascript/show.js"></script>

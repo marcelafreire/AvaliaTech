@@ -4,6 +4,7 @@ body {
 	margin: 0rem;
 	font-family: 'Lato', sans-serif;
 	width: 100%;
+	padding: 0;
 }
 
 a {
@@ -34,9 +35,10 @@ a:visited {
 
 .div-nav {
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
 	justify-content: space-around;
 	font-size: 0.9rem;
+	flex-wrap: wrap;
 }
 
 #nav-1 {
@@ -128,6 +130,14 @@ a:visited {
 	box-shadow: 1px 3px 50px 3px rgba(73, 180, 157, 0.7);
 }
 
+.btn-banner:hover {
+background: #060E41;
+letter-spacing: 1px;
+box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.4s ease 0s;
+}
+
+
 .courses-home {
 	background-color: #e0efe9;
 	height: 30rem;
@@ -135,21 +145,13 @@ a:visited {
 	align-items: center;
 	flex-direction: column;
 	margin-top: 4rem;
-	padding-top: 3rem;
+	padding: 3rem;
 }
 
 .courses-home h2 {
 	color: #060e41;
 	font-size: 2rem;
 	font-weight: 400;
-}
-
-.footer {
-	display: flex;
-	background-color: #060e41;
-	height: 4rem;
-	justify-content: center;
-	align-items: center;
 }
 
 .cards {
@@ -161,6 +163,7 @@ a:visited {
 	height: 12rem;
 	text-align: center;
 	flex-wrap: wrap;
+	flex-direction: row;
 	color: rgb(37, 37, 37);
 	box-shadow: 0px 0px 40px 11px rgba(207, 226, 219, 0.91);
 }
@@ -184,6 +187,7 @@ a:visited {
 .cards-home {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 .btn-home {
@@ -198,6 +202,26 @@ a:visited {
 	box-shadow: 0px 0px 37px -2px rgba(73, 180, 157, 0.61);
 }
 
+.btn-home:hover {
+	color: #060e41;
+	box-shadow: 0px 0px 37px -2px rgba(73, 180, 157, 0.61);
+	background-color: white;
+	box-shadow: 0px 0px 37px -2px rgba(73, 180, 157, 0.61);
+
+}
+
 .footer img {
 	width: 7rem;
+}
+
+.footer {
+	display: flex;
+	background-color: #060e41;
+	height: 4rem;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
 }

@@ -1,20 +1,69 @@
-<form id="form" action="/signup" method="POST">
-  <label for="username">Nome</label><br>
-  <input type="text" name="username" placeholder="Your username">
+
+<nav class="nav">
+  <div id="nav-1" class="div-nav">
+    <a href="/"><img id="logo" src="../images/logo.png"> </a>
+    <a href="/">Home</a>
+    <a href="/course">Cursos avaliados</a>
+  </div>
+  <div class="div-nav">
+    <form class="search" id="search-login" action="/course/list">
+      <label for="stringQuery"></label>
+      <input id="search-login" type="text" name="stringQuery" placeholder="Procurar por curso ou instituição">
+      <button id="btn-search" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
+
+  {{#unless user}}
+  <div id="nav-2" class="div-nav">
+    <a id="login" href="/login">Login</a>
+    <a id="signup" href="/signup">Cadastre-se</a>
+  </div>
+  {{/unless}}
+
+  {{#if user}}
+  <div id="nav-2" class="div-nav">
+    <a id="login" href="/logout">logout</a>
+    <a id="login" href="/profile/{{user._id}}">perfil</a>
+  </div>
+  {{/if}}
+</nav>
+
+
+
+
+<section class="login-signup">
+
+  <div class="login-form-div">
+    <h2 id="form-h2">Cadastre-se</h2>
+
+<form lass="login-form" id="form" action="/signup" method="POST">
+
+  <input id="input-login" type="text" name="username" placeholder="Nome de usuário"> <br>
    <input type="hidden" name="imgPath" value="{{imgPath}}">
-  <label for="">E-mail</label>
-  <input type="email" name="email" id="email">
 
-  <label for="password">Senha</label><br>
-  <input type="password" name="password" placeholder="********">
+  <input id="input-login" type="email" name="email" id="email" placeholder="E-mail"><br>
 
-{{!-- <div class="g-recaptcha" data-sitekey="6LdD3OkUAAAAAF7Y0lqZ8xbSZ1PhkejBZPvivSBl"></div> --}}
+  <input id="input-login" type="password" name="password" placeholder="Senha"><br><br>
+
+  {{#if errorMessage}}
+    <div class="error-message">
+  {{errorMessage}}
+    </div>
+  {{/if}}
+  <br>
   
-  <button type="submit">Crie uma conta</button>
+  <button id="btn-login" class="btn-banner" type="submit">Criar conta</button><br>
+  <p>ou</p>
 
-  <a href="/auth/google">Login With Google</a>
-
-  <a href="/auth/facebook">Login With facebook</a>
+      <a id="btn-social-fb" href="/auth/facebook"><i class="fab fa-facebook-square"></i>Login com
+          facebook</a><br>
+      <a id="btn-social-g" href="/auth/google"><i class="fab fa-google"></i>Login com Google</a><br>
+      <p>
+        Já tem uma conta? <u><a class="account-message" href="/login"> Faça Login</a></u>
+      </p>
 </form>
+  </div>
 
+
+</section>
 
