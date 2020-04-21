@@ -1,0 +1,106 @@
+#search-login {
+    background-color: rgb(235, 235, 235);
+}
+
+.login-signup {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0 10rem 0;
+}
+
+.login-form-div {
+box-shadow: 0px 0px 47px 0px rgba(99,202,162,0.13);
+width: 30rem;
+height: 35rem;
+border-radius: 1rem;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 3rem;
+text-align: center;
+flex-direction: column;
+}
+
+.login-form {
+display: flex;
+flex-direction: column;
+color: #060E41;
+}
+
+#form-h2 {
+    color: #060E41;
+}
+
+#input-login {
+    background-color: rgb(236, 236, 236); 
+    border-style: none;
+    border-radius: 0.6rem;
+    padding: 0.6rem 2rem;
+    margin: 0.5rem;
+    width: 10rem;
+
+}
+
+#btn-login {
+    margin: 0.5rem;
+    padding: 0.5rem 3rem;
+}
+
+
+#btn-social-fb {
+    background-color: #2c4181;
+    border-radius: 2rem;
+    border-style: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    margin-top: 1.5rem;
+}
+
+
+
+.fa-facebook-square {
+margin-right: 0.5rem;
+font-size: 1.5rem;
+}
+
+
+
+#btn-social-g {
+    background-color: #ffffff;
+    border-radius: 2rem;
+    border-style: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    box-shadow: 0px 0px 29px -13px rgba(0,0,0,0.69);
+}
+
+
+.fa-google {
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+    color: #4081ed;
+}
+
+.account-message:hover {
+color: #63CAA2;
+}
+
+.error-message {
+    background: #F02B63;
+    box-sizing: border-box;
+    color: #fff;
+    padding-top: 0.5rem ;
+    width: 15rem;
+    height: 2rem;
+    border-radius: 0.4rem;
+
+}

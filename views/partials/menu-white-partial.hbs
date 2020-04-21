@@ -1,4 +1,3 @@
-
 <nav class="nav">
   <div id="nav-1" class="div-nav">
     <a href="/"><img id="logo" src="../images/logo.png"> </a>
@@ -27,34 +26,3 @@
   </div>
   {{/if}}
 </nav>
-
-
-<section class="login-signup">
-
-  <div class="login-form-div">
-    <h2 id="form-h2">Login</h2>
-    <form class="login-form" action="/login" method="POST" id="form">
-
-      <input id="input-login" type="text" name="username" placeholder="Nome">
-      <input id="input-login" type="password" name="password" placeholder="Senha">
-
-      {{#if message}}
-      <div class="error-message">{{ message }}</div>
-      {{/if}}<br>
-      <button id="btn-login" class="btn-banner">Login</button>
-      <p>ou</p>
-
-      <a id="btn-social-fb" href="/auth/facebook"><i class="fab fa-facebook-square"></i>Login com
-          facebook</a><br>
-      <a id="btn-social-g" href="/auth/google"><i class="fab fa-google"></i>Login com Google</a><br>
-
-
-      <p>
-        Não tem uma conta? <u><a class="account-message" href="/signup"> Cadastre-se</a></u>
-      </p>
-    </form>
-
-  </div>
-
-
-</section>
