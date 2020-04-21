@@ -1,0 +1,133 @@
+.course-list-header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 50px;
+	height: 30rem;
+	background-image: url("/images/cursos.png");
+	background-repeat: no-repeat;
+	background-size: auto;
+	color: #060e41;
+}
+
+.course-list-header b {
+	margin-left: 20px;
+}
+
+.course-list-container {
+	display: flex;
+	justify-content: space-around;
+	margin: 10rem;
+}
+
+.course-list-filters {
+	display: flex;
+	flex-direction: column;
+	padding: 30px;
+}
+
+.course-list-filters-header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	margin-bottom: 30px;
+}
+
+.course-list-filters-field {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 30px;
+}
+
+.course-list-filters-label {
+	margin-bottom: 10px;
+}
+
+.course-list-filters-input-minmax {
+	display: flex;
+}
+
+.course-list-filters-input-minmax div {
+	display: flex;
+	flex-direction: column;
+	margin-right: 40px;
+	width: 5rem;
+}
+
+.course-list-input {
+	background-color: #e8e8e8;
+	border-radius: 5px;
+	border-style: none;
+}
+
+.course-list-input-text {
+	height: 30px;
+	padding-left: 0.5rem;
+}
+
+.course-list-input-number {
+	height: 30px;
+	padding-left: 0.5rem;
+	-webkit-appearance: none;
+	-moz-appearance: textfield;
+}
+
+.course-list-input-select {
+	height: 30px;
+	width: 70%;
+	text-align: center;
+}
+
+.course-list-button-container {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.course-list-button {
+	border-radius: 0.8rem;
+	background-color: #060e41;
+	height: 30px;
+	width: 150px;
+	color: white;
+	border-style: none;
+}
+
+.course-list-filters-option {
+	display: flex;
+	justify-content: space-evenly;
+	width: 80%;
+	margin-bottom: 30px;
+}
+
+.course-list-cards {
+	display: flex;
+	flex-wrap: wrap;
+	width: 60%;
+	height: 10rem;
+}
+
+.course-list-cards-container {
+	margin-right: 15px;
+}
+
+.course-list-bottom {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 25px;
+	color: #060e41;
+	margin-bottom: 20rem;
+}
+
+.course-list-bottom-button {
+	margin-top: 1rem;
+	border-radius: 15px;
+	background-color: #63caa2;
+	font-size: 20px;
+	color: white;
+	padding: 0.5rem;
+	width: 20rem;
+}
