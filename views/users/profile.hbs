@@ -1,16 +1,17 @@
-<h1>Confiruações de Perfil</h1>
-
 <img src="{{imgPath}}"><br>
 
-<form action="/profile-edit?id={{_id}}" method="POST" enctype="multipart/form-data">
-<input id="edit" name="username" value="{{username}}" disabled></input> | <button type="button" id="btn">Edit</button><br>
-<input id="edit2" name="email" value="{{email}}" disabled></input> | <button type="button" id="btn2">Edit</button><br>
-  <label>Foto</label>
-  <input type="file" name="photo">
-<button id="save" type="submit">Salvar</button>
-</form>
-
+<div class="profile-container">
+  <form action="/profile-edit?id={{_id}}" method="POST" enctype="multipart/form-data">
+    <div class="profile-photo-container">
+      <label>Foto</label>
+      <input type="file" name="photo">
+    </div>
+    <input id="edit" name="username" value="{{username}}" disabled></input> | <button type="button" id="btn">Edit</button><br>
+    <input id="edit2" name="email" value="{{email}}" disabled></input> | <button type="button" id="btn2">Edit</button><br>
+    <button id="save" type="submit">Salvar</button>
+  </form>
+</div>
 
 <a href="/password">Redefinir senha</a>
-<script src="/javascript/edit.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/javascript/edit.js"></script>
