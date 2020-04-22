@@ -6,6 +6,7 @@ const User = require('../models/user');
 const Review = require('../models/review');
 const session = require('express-session');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // ROLES control
 const checkRoles = (role) => {
@@ -77,15 +78,34 @@ router.get('/course/list', (req, res) => {
 		query.format = format;
 	}
 
+	const formats = Course.schema.path('format').enumValues;
+	const categories = Course.schema.path('category').enumValues;
+
 	if (findByUser) {
 		if (req.user) {
 			userID = req.user._id;
+
 			Review.find({ writer: userID }, { _id: 1 })
 				.then((reviewsIDs) => {
 					query.reviews = { $in: reviewsIDs };
+
 					Course.find(query)
 						.then((courses) => {
-							res.render('course/list', { userID, courses });
+							Review.aggregate([ { $group: { _id: '$course', average: { $avg: '$rating' } } } ])
+								.then((avgs) => {
+									console.log(avgs);
+									avgs.forEach((avg) => {
+										courses.forEach((course) => {
+											if (course._id.toString() === avg._id.toString()) {
+												course.average = avg.average.toFixed(2);
+											}
+										});
+									});
+									console.log('courses: ', courses[0]);
+									console.log('average: ', courses[0].average);
+									res.render('course/list', { categories, formats, userID, courses });
+								})
+								.catch((err) => console.log(err));
 						})
 						.catch((err) => console.log(err));
 				})
@@ -95,9 +115,20 @@ router.get('/course/list', (req, res) => {
 		Course.find(query)
 			.then((courses) => {
 				console.log(courses);
-				const formats = Course.schema.path('format').enumValues;
-				const categories = Course.schema.path('category').enumValues;
-				res.render('course/list', { courses, formats, categories, userID });
+				Review.aggregate([ { $group: { _id: '$course', average: { $avg: '$rating' } } } ])
+					.then((avgs) => {
+						console.log(avgs);
+						avgs.forEach((avg) => {
+							courses.forEach((course) => {
+								if (course._id.toString() === avg._id.toString()) {
+									course.average = avg.average.toFixed(2);
+								}
+							});
+						});
+						console.log(courses);
+						res.render('course/list', { categories, formats, userID, courses });
+					})
+					.catch((err) => console.log(err));
 			})
 			.catch((err) => console.log(err));
 	}
@@ -219,6 +250,42 @@ router.get('/course/delete/:id', checkRoles('ADMIN'), (req, res) => {
 		.then((course) => {
 			console.log(course);
 			res.redirect('/course/list');
+		})
+		.catch((err) => console.log(err));
+});
+
+router.get('/avg', (req, res) => {
+	Review.aggregate([ { $group: { _id: '$course', average: { $avg: '$rating' } } } ])
+		.then((avg) => {
+			console.log(avg);
+			res.send(avg);
+		})
+		.catch((err) => console.log(err));
+});
+
+router.get('/avg/:id', (req, res) => {
+	const { id } = req.params;
+
+	Review.aggregate([
+		{ $match: { course: mongoose.Types.ObjectId(id) } },
+		{ $group: { _id: '$course', average: { $avg: '$rating' } } }
+	])
+		.then((avg) => {
+			console.log(avg);
+			res.send(avg);
+		})
+		.catch((err) => console.log(err));
+});
+
+router.get('/greaterAvg', (req, res) => {
+	Review.aggregate([
+		{ $group: { _id: '$course', average: { $avg: '$rating' } } },
+		{ $match: { average: { $gte: 3 } } },
+		{ $project: { _id: 1 } }
+	])
+		.then((avg) => {
+			console.log(avg);
+			res.send(avg);
 		})
 		.catch((err) => console.log(err));
 });
