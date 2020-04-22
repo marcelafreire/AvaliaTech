@@ -79,8 +79,7 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
         const newUser = new User({
           username,
           password: hashPass,
-          email,
-          confirmationCode: token,
+          email
         });
     
        newUser.save()

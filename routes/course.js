@@ -160,7 +160,6 @@ router.get('/course/add', (req, res) => {
 router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const { name, institution, value, duration, format, link, category, text, rating } = req.body;
 	const newCourse = { name, institution, value, duration, format, category, link };
-
 	Course.create(newCourse)
 		.then((course) => {
 			console.log(course);
@@ -173,13 +172,13 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 				course.reviews = [ review ];
 				Course.findOneAndUpdate({ _id: course._id }, course).then((response) => {
 					res.redirect('/course/list');
-				});
 			});
-		})
+		});
+	})
 		.catch((err) => {
 			console.log(err);
 			res.render('error');
-		});
+	});
 	User.findOne({ _id: req.user.id }).then((writer) => {}).catch((err) => console.log(err));
 });
 
