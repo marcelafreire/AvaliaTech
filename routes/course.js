@@ -35,7 +35,19 @@ router.get('/course', (req, res) => {
 });
 
 router.get('/course/list', (req, res) => {
-	const { name, category, institution, minValue, maxValue, minDuration, maxDuration, format, findByUser } = req.query;
+	const {
+		name,
+		category,
+		institution,
+		minValue,
+		maxValue,
+		minDuration,
+		maxDuration,
+		minAvg,
+		maxAvg,
+		format,
+		findByUser
+	} = req.query;
 	let userID;
 
 	let query = {};
@@ -80,58 +92,57 @@ router.get('/course/list', (req, res) => {
 
 	const formats = Course.schema.path('format').enumValues;
 	const categories = Course.schema.path('category').enumValues;
+	let findReviewsByWriter = autoResolvedPromise();
 
-	if (findByUser) {
-		if (req.user) {
-			userID = req.user._id;
+	if (findByUser && req.user) {
+		userID = req.user._id;
+		// aggregatePipeline.push({ $match: { writer: userID } });
+		findReviewsByWriter = Review.find({ writer: userID }, { _id: 1 });
+	}
 
-			Review.find({ writer: userID }, { _id: 1 })
+	let aggregatePipeline = [];
+
+	aggregatePipeline.push({ $group: { _id: '$course', average: { $avg: '$rating' } } });
+
+	if (minAvg && maxAvg) {
+		aggregatePipeline.push({ $match: { average: { $gte: parseFloat(minAvg), $lte: parseFloat(maxAvg) } } });
+	} else {
+		if (minAvg) {
+			aggregatePipeline.push({ $match: { average: { $gte: parseFloat(minAvg) } } });
+		}
+		if (maxAvg) {
+			aggregatePipeline.push({ $match: { average: { $lte: parseFloat(maxAvg) } } });
+		}
+	}
+
+	console.log(aggregatePipeline);
+
+	Review.aggregate(aggregatePipeline)
+		.then((response) => {
+			console.log(response);
+			query._id = { $in: response.map((obj) => obj._id) };
+			findReviewsByWriter
 				.then((reviewsIDs) => {
-					query.reviews = { $in: reviewsIDs };
-
-					Course.find(query)
-						.then((courses) => {
-							Review.aggregate([ { $group: { _id: '$course', average: { $avg: '$rating' } } } ])
-								.then((avgs) => {
-									console.log(avgs);
-									avgs.forEach((avg) => {
-										courses.forEach((course) => {
-											if (course._id.toString() === avg._id.toString()) {
-												course.average = avg.average.toFixed(2);
-											}
-										});
-									});
-									console.log('courses: ', courses[0]);
-									console.log('average: ', courses[0].average);
-									res.render('course/list', { categories, formats, userID, courses });
-								})
-								.catch((err) => console.log(err));
-						})
-						.catch((err) => console.log(err));
+					if (reviewsIDs) {
+						query.reviews = { $in: reviewsIDs };
+					}
+					return Course.find(query);
+				})
+				.then((courses) => {
+					response.forEach((response) => {
+						courses.forEach((course) => {
+							if (course._id && response._id) {
+								if (course._id.toString() === response._id.toString()) {
+									course.average = response.average.toFixed(2);
+								}
+							}
+						});
+					});
+					res.render('course/list', { categories, formats, userID, courses });
 				})
 				.catch((err) => console.log(err));
-		}
-	} else {
-		Course.find(query)
-			.then((courses) => {
-				console.log(courses);
-				Review.aggregate([ { $group: { _id: '$course', average: { $avg: '$rating' } } } ])
-					.then((avgs) => {
-						console.log(avgs);
-						avgs.forEach((avg) => {
-							courses.forEach((course) => {
-								if (course._id.toString() === avg._id.toString()) {
-									course.average = avg.average.toFixed(2);
-								}
-							});
-						});
-						console.log(courses);
-						res.render('course/list', { categories, formats, userID, courses });
-					})
-					.catch((err) => console.log(err));
-			})
-			.catch((err) => console.log(err));
-	}
+		})
+		.catch((err) => console.log(err));
 });
 
 router.get('/course/add', (req, res) => {
@@ -150,22 +161,26 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const { name, institution, value, duration, format, link, category, text, rating } = req.body;
 	const newCourse = { name, institution, value, duration, format, category, link };
 
-	User.findOne({ _id: req.user.id })
-		.then((writer) => {
-			Review.create({ text, rating, writer }).then((review) => {
-				newCourse.reviews = [ review ];
-				Course.create(newCourse)
-					.then((course) => {
-						console.log(course);
-						res.redirect('/course/list');
-					})
-					.catch((err) => {
-						console.log(err);
-						res.render('error');
-					});
+	Course.create(newCourse)
+		.then((course) => {
+			console.log(course);
+			Review.create({
+				text,
+				rating,
+				writer: mongoose.Types.ObjectId(req.user.id),
+				course: course._id
+			}).then((review) => {
+				course.reviews = [ review ];
+				Course.findOneAndUpdate({ _id: course._id }, course).then((response) => {
+					res.redirect('/course/list');
+				});
 			});
 		})
-		.catch((err) => console.log(err));
+		.catch((err) => {
+			console.log(err);
+			res.render('error');
+		});
+	User.findOne({ _id: req.user.id }).then((writer) => {}).catch((err) => console.log(err));
 });
 
 router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
@@ -278,16 +293,23 @@ router.get('/avg/:id', (req, res) => {
 });
 
 router.get('/greaterAvg', (req, res) => {
-	Review.aggregate([
-		{ $group: { _id: '$course', average: { $avg: '$rating' } } },
-		{ $match: { average: { $gte: 3 } } },
-		{ $project: { _id: 1 } }
-	])
-		.then((avg) => {
-			console.log(avg);
-			res.send(avg);
-		})
+	autoResolvedPromise()
+		.then(() =>
+			Review.aggregate([
+				{ $group: { _id: '$course', average: { $avg: '$rating' } } },
+				{ $match: { average: { $gte: 1, $lte: 2 } } }
+			])
+				.then((avg) => {
+					console.log(avg);
+					res.send(avg);
+				})
+				.catch((err) => console.log(err))
+		)
 		.catch((err) => console.log(err));
 });
+
+const autoResolvedPromise = () => {
+	return new Promise((resolve, reject) => resolve());
+};
 
 module.exports = router;
