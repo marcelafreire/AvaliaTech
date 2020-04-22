@@ -17,7 +17,7 @@
 .course-list-container {
 	display: flex;
 	justify-content: space-around;
-	margin: 10rem;
+	margin: 7rem;
 }
 
 .course-list-filters {
@@ -108,9 +108,10 @@
 	height: 10rem;
 }
 
-.course-list-cards-container {
-	margin-right: 15px;
-}
+/* .course-list-cards-container {
+	margin-left: 1rem;
+
+} */
 
 .course-list-bottom {
 	display: flex;
@@ -130,4 +131,5 @@
 	color: white;
 	padding: 0.5rem;
 	width: 20rem;
+	border: none;
 }

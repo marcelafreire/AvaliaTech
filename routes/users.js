@@ -10,19 +10,6 @@ const ensureLogin = require("connect-ensure-login");
 const LocalStrategy = require('passport-local').Strategy
 
 
-
-
-// NODEMAILER
-let transporter = nodemailer.createTransport({
-	host: 'smtp.mailtrap.io',
-	port: 2525,
-	auth: {
-		user: process.env.MAIL_user,
-		pass: process.env.MAIL_pass
-	}
-});
-
-
 //LOGIN
 router.get('/login', (req, res) => {
 	res.render('users/login');
@@ -77,12 +64,6 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
     const password = req.body.password;
     const email = req.body.email;
 
-    const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let token = '';
-    for (let i = 0; i < 25; i++) {
-      token += characters[Math.floor(Math.random() * characters.length )];
-  }
-
     if (username === "" || password === "" || email === "") {
       res.render("users/signup", { errorMessage: "Preencha nome de usuário, e-mail e senha corretamente" });
       return;
@@ -104,21 +85,8 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
     
        newUser.save()
        .then(user => {
-        transporter.sendMail({
-          from: '"My Awesome Project " <noreply@project.com>',
-          to: user.email,
-          subject: 'Welcome', 
-          text: `<a href="http://localhost:3000/auth/confirm/${user.confirmationCode}"></a>`,
-          html: '<b>Awesome Message</b>'
-        })
-        .then(user => {
           res.redirect('/');
         })
-        .catch(error => res.render('index', {
-          errorMessage: error
-        }));
-    
-      })
       .catch(err => res.status(400).render('index', {
         errorMessage: err.errmsg
       })); 
@@ -139,16 +107,17 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
       })
     });
 
+
+
   // editar infos
   router.post('/profile-edit', uploadCloud.single('photo'), ensureLogin.ensureLoggedIn(), (req, res) => {
     const {username, email} = req.body;
-    const imgPath = req.file.url;
     const {id} = req.query;
 
     if(username !== "" || email !== "") {
      }
  User.findByIdAndUpdate({_id: id}, 
-      {$set: {username, email, imgPath}}, 
+      {$set: {username, email}}, 
       {new: true})
       .then(response => {
         console.log(response)
@@ -157,6 +126,29 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
       .catch(error => console.log(error));
   });  
 
+
+
+  router.post('/img-edit', uploadCloud.single('photo'), ensureLogin.ensureLoggedIn(), (req, res) => {
+    const imgPath = req.file.url;
+    const {id} = req.query;
+
+ User.findByIdAndUpdate({_id: id}, 
+      {$set: {imgPath}}, 
+      {new: true})
+      .then(response => {
+        console.log(response)
+        res.redirect(`/profile/${id}`);
+})
+      .catch(error => console.log(error));
+  });  
+
+
+
+
+
+
+
+  
 
 // //PASSWORD
 router.get('/password/:id', ensureLogin.ensureLoggedIn(), (req, res) => {

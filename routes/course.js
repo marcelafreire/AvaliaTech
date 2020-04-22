@@ -183,6 +183,10 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 	User.findOne({ _id: req.user.id }).then((writer) => {}).catch((err) => console.log(err));
 });
 
+
+
+
+
 router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const { id } = req.params;
 

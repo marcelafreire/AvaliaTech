@@ -1,0 +1,74 @@
+.profile-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding-top: 5rem;
+    margin-bottom: 10rem;
+}
+
+.profile-container-div {
+    width: 30rem;
+    height: 35rem;
+    box-shadow: 0px 0px 47px 0px rgba(99,202,162,0.13);
+    display: flex;
+    flex-direction:column-reverse;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    margin-top: -3rem;
+
+}
+
+
+.form-container {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    border-radius: 1rem;
+    padding-top: 5rem;
+
+}
+
+input:disabled {
+border-style: none;
+font-family:'Lato', sans-serif;
+font-size: 1rem;
+color: black;
+}
+
+.profile-inputs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.profile-inputs p {
+    font-size: 0.9rem;
+    padding-right: 1rem;
+}
+
+.btn-edit {
+    background-color: #050b42;
+    border-style: none;
+    color: white;
+    height: 1.1rem;
+    width: 3rem;
+    border-radius: 0.8rem;
+}
+
+.img-profile {
+width: 6rem;
+border-radius: 50%;
+margin-bottom: 1rem;
+}
+
+#btn-photo {
+    width: 4rem;
+    height: 1.2rem;
+    color: white;
+}
+
+.password-profile {
+    margin-top: 3rem;
+    color: #050b42;
+    text-align: center;
+}

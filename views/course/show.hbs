@@ -1,33 +1,4 @@
-<nav id="nav" class="nav">
-  <div id="nav-1" class="div-nav">
-    <a href="/"><img id="logo" src="../images/logo.png"> </a>
-    <a href="/">Home</a>
-    <a href="/course">Cursos avaliados</a>
-  </div>
-  <div class="div-nav">
-    <form class="search" action="/course/list">
-      <label for="stringQuery"></label>
-      <input type="text" name="stringQuery" placeholder="Procurar por curso ou instituição">
-      <button id="btn-search" type="submit"><i class="fas fa-search"></i></button>
-    </form>
-  </div>
-
-  {{#unless user}}
-  <div id="nav-2" class="div-nav">
-    <a id="login" href="/login">Login</a>
-    <a id="signup" href="/signup">Cadastre-se</a>
-  </div>
-  {{/unless}}
-
-  {{#if user}}
-  <div id="nav-2" class="div-nav">
-    <a id="login" href="/logout">logout</a>
-    <a id="login" href="/profile/{{user._id}}">perfil</a>
-  </div>
-  {{/if}}
-</nav>
-
-
+{{> navbarPartial}}
 <section class="section-course">
   <div class="section-course-div">
     {{#with course}}
@@ -76,7 +47,7 @@
         <h3 id="avg"></h3>
       </div>
 
-        <a class="btn-course-site" href="{{link}}">Ver curso</a>
+      <a href="{{link}}" target="_blank" class="btn-course-site">Ver curso</a>
 
       <br>
       <ul>
@@ -84,57 +55,75 @@
   </div>
 
 
-<div class="course-reviews-title">
-  <h3>Avaliações</h3>
-</div>
+  <div class="course-reviews-title">
+    <h3>Avaliações</h3>
+  </div>
+
+
   {{#each reviews}}
   <div {{#if isOwner}}class="editable" {{/if}}>
-    <h2>{{writer.username}}</h2>
-
-    <input type="text" name="id" class="reviewID" value="{{_id}}" hidden>
-    <textarea cols="100" class="textReview" rows="3" disabled>{{text}}</textarea>
+    <div class="course-review">
+      <div class="review-owner">
+        <img id="img" src="{{writer.imgPath}}">
+        <h2>{{writer.username}}</h2>
+      </div>
+      <div class="edit-course-owner">
+        <input type="text" name="id" class="reviewID" value="{{_id}}" hidden>
+        <textarea class="textReview" collums="5" rows="5" disabled>{{text}}</textarea>
+        <div class="is-owner">
+          {{#if isOwner}}
+          <button type="button" class="edit">Editar</button>
+          <button type="button" class="save" hidden>Salvar</button>
+          <button type="button" class="delete">Deletar</button>
+          <br>
+          {{/if}}
+        </div>
+      </div>
+    </div>
 
     <br><br>
-    <div>
-      <label for="">Rating</label>
+
+    <div class="course-rating">
+      <label for="">Nota:</label>
       <select class="ratingReview" disabled>
         {{#each ratings}}
         <option value="{{value}}" {{#if isRating}}selected{{/if}}>{{value}}</option>
         {{/each}}
       </select>
+
     </div>
-    <br>
-    {{#if isOwner}}
-    <button type="button" class="edit">Editar</button>
-    <button type="button" class="save" hidden>Salvar</button>
-    <button type="button" class="delete">Deletar</button>
-    <br>
-    {{/if}}
+    <hr class="review-divisor">
   </div>
+
   {{/each}}
+
+
   </ul>
 
 
-  <p>Add a review</p>
-  <form action="/reviews/add/{{_id}}" method="post">
+
+
+  <form class="review-course-form" action="/reviews/add/{{_id}}" method="post">
+
+    <h3>Adicionar Avaliação</h3>
     <h2>{{writer.username}}</h2>
-    <label for="">Avaliação:</label>
 
-    <textarea type="text" name="text" required></textarea>
+    <label>Avaliação:</label>
+    <textarea type="text" name="text" collums="10" rows="10" required></textarea>
+    <div class="rating-course-review">
+      <label for="">Nota:</label>
+      <select name="rating" required>
+        {{!-- <option value="6">--</option> --}}
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
 
-    <label for="">Rating</label>
-    <select name="rating" required>
-      {{!-- <option value="6">--</option> --}}
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-
-    <button type="submit">Adicionar</button>
-
+    <button class="course-button" type="submit">Adicionar</button>
     {{/with}}
 </section>
 

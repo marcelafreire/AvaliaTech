@@ -1,17 +1,41 @@
-<img src="{{imgPath}}"><br>
 
-<div class="profile-container">
+<section class="profile-container">
+
+<div class="profile-container-div">
+
+<a class="password-profile" href="/password/{{_id}}">Redefinir senha</a>
+
   <form action="/profile-edit?id={{_id}}" method="POST" enctype="multipart/form-data">
-    <div class="profile-photo-container">
-      <label>Foto</label>
-      <input type="file" name="photo">
+    <div class="form-container">
+    
+      <div class="profile-inputs">
+      <p>Nome:</p><input id="edit" name="username" value="{{username}}" disabled></input>  <button class="btn-edit" type="button"
+        id="btn">Edit</button><br>
+        </div>
+        <div class="profile-inputs">
+      <p>E-mail:</p><input id="edit2" name="email" value="{{email}}" disabled></input>  <button class="btn-edit" type="button"
+        id="btn2">Edit</button><br>
+        </div><br>
+      <button id="save" class="course-button" type="submit">Salvar</button>
     </div>
-    <input id="edit" name="username" value="{{username}}" disabled></input> | <button type="button" id="btn">Edit</button><br>
-    <input id="edit2" name="email" value="{{email}}" disabled></input> | <button type="button" id="btn2">Edit</button><br>
-    <button id="save" type="submit">Salvar</button>
   </form>
-</div>
 
-<a href="/password">Redefinir senha</a>
+<form action="/img-edit?id={{_id}}" method="POST" enctype="multipart/form-data">
+      <label>Mudar foto</label>
+      <input type="file" name="photo"><br>
+      <button id="btn-photo" class="course-button" type="submit">Salvar</button>
+  </form>
+    <img class="img-profile" src="{{imgPath}}"><br>
+
+
+<button class="course-button"><a id="btn-photo" href="/"> voltar</a></button>
+</section>
+
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/javascript/edit.js"></script>
+
+
+
+  
+
