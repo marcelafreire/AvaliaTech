@@ -9,7 +9,7 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    margin-bottom: 5rem;
+    margin-bottom: 10rem;
 }
 .section-course-div {
     background-color: white;
@@ -89,9 +89,139 @@
 
 
 
+
+.course-reviews-title {
+background-color: rgb(218, 218, 218);
+border-radius: 0.7rem;
+width: 45rem;
+height: 2.5rem;
+margin: 4rem 0 2rem 0;
+}
+
 .course-reviews-title h3 {
-    padding-left: 1rem;
-    color: rgb(102, 102, 102);
+    padding-left: 2rem;
+    color: #060E41;
     text-align: left;
+    margin-top: 0.5rem;
+}
+
+.course-review {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: -3rem;
+    width: 50rem;
+}
+
+#img {
+    width: 3rem;
+    margin-bottom: -1rem;
+}
+
+.review-owner {
+    text-align: center;
+    width: 13rem;
+}
+
+.course-rating {
+    display: flex;
+    justify-content: flex-end;
+    width: 18rem;
+    margin-bottom: 2rem;
+}
+
+.edit-course-owner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-divisor {
+    border: 0.1px solid rgb(223, 222, 222);
+    margin: 4rem 0 2rem 0;
+    width: 55rem;
+}
+
+textarea:disabled {
+    border: none;
+    font-size: 0.9rem;
+    width: 37rem;
+    height: auto;
+    color: black;
+    padding-left: 1rem;
 
 }
+
+select:disabled {
+    border: none;
+    color: #DC5B21;
+    background-color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+}
+
+textarea.textReview {
+    width: 37rem;
+    resize: none;
+}
+
+button.edit {
+    background-color: #060E41;
+    color: white;
+    border-radius: 0.5rem;
+    border-style: none;
+}
+button.delete {
+    background-color: #060E41;
+    color: white;
+    border-radius: 0.5rem;
+    border-style: none;
+}
+
+
+.review-course-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50rem;
+}
+
+.review-course-form h3 {
+    color: #060E41;
+    font-size: 1.4rem;
+    margin-bottom: -1rem;
+}
+
+.review-course-form textarea {
+    width: 30rem;
+    border-style: none;
+    background-color: #f1efef;
+    border-radius: 0.2rem;
+    resize: none;
+}
+
+.review-course-form label {
+font-size: 1rem;
+color: #060E41;
+font-weight: 700;
+text-align: left;
+margin: 1rem;
+}
+
+.rating-course-review {
+display: flex;
+flex-direction: row;
+align-items: center;
+margin: 1rem;
+}
+
+.rating-course-review select {
+background-color:  #f1efef;
+border-style: none;
+padding: 1rem;
+font-size: 1rem;
+}
+
+
+

@@ -33,7 +33,7 @@ a:visited {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	height: 3.6rem;
+	height: 5rem;
 	color: #060e41;
 }
 
@@ -224,7 +224,7 @@ transition: all 0.4s ease 0s;
 	height: 4rem;
 	justify-content: center;
 	align-items: center;
-	position: fixed;
+	position: relative;
 	left: 0;
 	bottom: 0;
 	width: 100%;

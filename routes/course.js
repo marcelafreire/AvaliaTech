@@ -137,6 +137,10 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 		.catch((err) => console.log(err));
 });
 
+
+
+
+
 router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const { id } = req.params;
 

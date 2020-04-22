@@ -17,7 +17,7 @@ const userSchema = new Schema({
   imgName: String,
   imgPath: {
     type: String,
-    default : 'http//:https://res.cloudinary.com/deyy3glzl/image/upload/v1587146626/download_ugpihi.png'
+    default : 'https://res.cloudinary.com/deyy3glzl/image/upload/v1587146626/download_ugpihi.png'
   }
 }, 
 
