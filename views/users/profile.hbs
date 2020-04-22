@@ -1,4 +1,5 @@
-
+{{> navbarPartial}}
+{{#with user}}
 <section class="profile-container">
 
 <div class="profile-container-div">
@@ -30,7 +31,7 @@
 
 <button class="course-button"><a id="btn-photo" href="/"> voltar</a></button>
 </section>
-
+{{/with}}
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/javascript/edit.js"></script>

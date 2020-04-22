@@ -35,6 +35,11 @@ router.get('/course', (req, res) => {
 });
 
 router.get('/course/list', (req, res) => {
+	let loggedUser;
+	if (req.user) {
+		loggedUser = req.user;
+	}
+
 	const {
 		name,
 		category,
@@ -115,11 +120,11 @@ router.get('/course/list', (req, res) => {
 		}
 	}
 
-	console.log(aggregatePipeline);
+	// console.log(aggregatePipeline);
 
 	Review.aggregate(aggregatePipeline)
 		.then((response) => {
-			console.log(response);
+			// console.log(response);
 			query._id = { $in: response.map((obj) => obj._id) };
 			findReviewsByWriter
 				.then((reviewsIDs) => {
@@ -138,7 +143,7 @@ router.get('/course/list', (req, res) => {
 							}
 						});
 					});
-					res.render('course/list', { categories, formats, userID, courses });
+					res.render('course/list', { categories, formats, userID, courses, loggedUser });
 				})
 				.catch((err) => console.log(err));
 		})
@@ -146,6 +151,11 @@ router.get('/course/list', (req, res) => {
 });
 
 router.get('/course/add', (req, res) => {
+	let loggedUser;
+	if (req.user) {
+		loggedUser = req.user;
+	}
+
 	const formats = Course.schema.path('format').enumValues.map((format) => {
 		return { format, selected: false };
 	});
@@ -154,7 +164,7 @@ router.get('/course/add', (req, res) => {
 	});
 	const isAdding = true;
 	console.log('foi');
-	res.render('course/add', { formats, categories, isAdding });
+	res.render('course/add', { formats, categories, isAdding, loggedUser });
 });
 
 router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
@@ -180,14 +190,14 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 			console.log(err);
 			res.render('error');
 		});
-	User.findOne({ _id: req.user.id }).then((writer) => {}).catch((err) => console.log(err));
 });
 
-
-
-
-
 router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
+	let loggedUser;
+	if (req.user) {
+		loggedUser = req.user;
+	}
+
 	const { id } = req.params;
 
 	Course.findOne({ _id: id })
@@ -200,12 +210,14 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 		})
 		.then((course) => {
 			//Owner Logic and Ratings
+			if (req.user.role === 'ADMIN') {
+				course.isAdmin = true;
+			}
+
 			course.reviews = course.reviews.map((review) => {
-				if (
-					(review.writer && review.writer._id.toString() === req.user._id.toString()) ||
-					req.user.role === 'ADMIN'
-				) {
+				if ((review.writer && review.writer._id.toString() === req.user._id.toString()) || course.isAdmin) {
 					review.isOwner = true;
+					course.haveAReview = true;
 				}
 
 				let ratings = [];
@@ -218,13 +230,19 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 
 			res.render('course/show', {
 				course,
-				user: req.user
+				user: req.user,
+				loggedUser
 			});
 		})
 		.catch((err) => console.log(err));
 });
 
 router.get('/course/edit/:id', checkRoles('ADMIN'), (req, res) => {
+	let loggedUser;
+	if (req.user) {
+		loggedUser = req.user;
+	}
+
 	const { id } = req.params;
 
 	Course.findOne({ _id: id })
@@ -243,7 +261,7 @@ router.get('/course/edit/:id', checkRoles('ADMIN'), (req, res) => {
 				return { category, selected: course.category === category };
 			});
 			const isEditing = true;
-			res.render('course/edit', { course, categories, formats, isEditing });
+			res.render('course/edit', { course, categories, formats, isEditing, loggedUser });
 		})
 		.catch((err) => console.log(err));
 });

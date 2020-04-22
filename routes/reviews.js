@@ -5,6 +5,7 @@ const Course = require('../models/course');
 const User = require('../models/user');
 const Review = require('../models/review');
 const session = require('express-session');
+const mongoose = require('mongoose');
 
 //Review API
 router.put('/course/:courseID/api/review/:id', (req, res) => {
@@ -35,24 +36,17 @@ router.post('/reviews/add/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const { text, rating } = req.body;
 	const { id } = req.params;
 
-	User.findOne({ _id: userId })
-		.then((user) => {
-			console.log(user);
-
-			Review.create({ text, rating, writer: user })
-				.then((review) => {
-					Course.findOneAndUpdate({ _id: id }, { $push: { reviews: review } })
-						.then((course) => {
-							res.redirect(`/course/${course._id}`);
-						})
-						.catch((error) => {
-							console.log(error);
-						});
+	Review.create({ text, rating, writer: mongoose.Types.ObjectId(userId), course: mongoose.Types.ObjectId(id) })
+		.then((review) => {
+			console.log(review);
+			Course.findOneAndUpdate({ _id: id }, { $push: { reviews: review } })
+				.then((course) => {
+					console.log(course);
+					res.redirect(`/course/${course._id}`);
 				})
 				.catch((error) => {
 					console.log(error);
 				});
-
 		})
 		.catch((error) => {
 			console.log(error);

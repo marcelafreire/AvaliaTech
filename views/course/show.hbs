@@ -4,10 +4,12 @@
     {{#with course}}
     <div class="title-course">
       <h2>{{name}}</h2><br>
-      {{!-- <div>
+      {{#if isAdmin}}
+      <div>
         <a class="course.detail-edit" href="/course/edit/{{_id}}">Edit</a>
         <a href="/course/delete/{{_id}}">Delete</a>
-      </div> --}}
+      </div>
+      {{/if}}
       <br>
     </div>
 
@@ -94,15 +96,10 @@
     </div>
     <hr class="review-divisor">
   </div>
-
   {{/each}}
-
-
   </ul>
 
-
-
-
+{{#unless haveAReview}}
   <form class="review-course-form" action="/reviews/add/{{_id}}" method="post">
 
     <h3>Adicionar Avaliação</h3>
@@ -124,6 +121,8 @@
     </div>
 
     <button class="course-button" type="submit">Adicionar</button>
+    </form>
+{{/unless}}
     {{/with}}
 </section>
 
