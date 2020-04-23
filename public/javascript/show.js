@@ -50,6 +50,9 @@ for (let i = 0; i < reviewDivs.length; i++) {
 			.delete(`${document.URL}/api/review/${reviewID}`)
 			.then((response) => {
 				console.log(response.data);
+				if (response.data && response.data.courseDeleted) {
+					window.location.href = `${window.location.origin}/course/list`;
+				}
 				const div = document.querySelector(`#review${i}`);
 				div.parentNode.removeChild(div);
 			})
