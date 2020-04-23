@@ -142,13 +142,6 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
   });  
 
 
-
-
-
-
-
-  
-
 // //PASSWORD
 router.get('/password/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
   const {id} = req.params;

@@ -1,30 +1,35 @@
 
-<nav class="nav">
-  <div id="nav-1" class="div-nav">
-    <a href="/"><img id="logo" src="../images/logo.png"> </a>
-    <a href="/">Home</a>
-    <a href="/course/list">Cursos avaliados</a>
-  </div>
-  <div class="div-nav">
-    <form class="search" id="search-login" action="/course/list">
-      <label for="stringQuery"></label>
-      <input id="search-login" type="text" name="stringQuery" placeholder="Procurar por curso ou instituição">
-      <button id="btn-search" type="submit"><i class="fas fa-search"></i></button>
-    </form>
-  </div>
+    <nav class="nav">
+        <div id="nav-1" class="div-nav">
+            <a href="/"><img id="logo" src="../images/logo.png"> </a>
+            <a href="/">Home</a>
+            <a href="/course/list">Cursos avaliados</a>
+        </div>
+        <div class="div-nav">
+            <form class="search" id="search-login" action="/course/list">
+                <label for="stringQuery"></label>
+                <input type="text" id="search-login" name="stringQuery" placeholder="Procurar por curso">
+                <button id="btn-search" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
 
-  {{#unless user}}
-  <div id="nav-2" class="div-nav">
-    <a id="login" href="/login">Login</a>
-    <a id="signup" href="/signup">Cadastre-se</a>
-  </div>
-  {{/unless}}
+        {{#unless user}}
+        <div id="nav-2" class="div-nav">
+            <a id="login" href="/login">Login</a>
+            <a id="signup" href="/signup">Cadastre-se</a>
+        </div>
+        {{/unless}}
 
-  {{#if user}}
-  <div id="nav-2" class="div-nav">
-    <a id="login" href="/logout">logout</a>
-    <a id="login" href="/profile/{{user._id}}">perfil</a>
-  </div>
-  {{/if}}
-</nav>
+    {{#if user}}
+    <div id="nav-2" class="div-nav">
+        <a id="login" href="/logout">logout</a>
+       <div class="profile-nav">
+           <img class="img-index" src="{{user.imgPath}}">
+           <a href="/profile/{{user._id}}">{{user.username}}</a>
+        </div>
+    </div>
+    {{/if}} 
+
+    </nav>
+
 

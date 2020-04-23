@@ -48,6 +48,7 @@
 	background-color: #e8e8e8;
 	border-radius: 5px;
 	border-style: none;
+	outline: none;
 }
 
 .course-form-input-text {

@@ -72,3 +72,9 @@ margin-bottom: 1rem;
     color: #050b42;
     text-align: center;
 }
+
+.change-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -199,6 +199,7 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 		})
 		.then((course) => {
 			//Owner Logic and Ratings
+
 			course.reviews = course.reviews.map((review) => {
 				if (
 					(review.writer && review.writer._id.toString() === req.user._id.toString()) ||
@@ -214,6 +215,10 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 				review.ratings = ratings;
 				return review;
 			});
+			
+			if (req.user.role === 'ADMIN') {
+				course.isAdmin = true;
+			}
 
 			res.render('course/show', {
 				course,
@@ -222,6 +227,7 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 		})
 		.catch((err) => console.log(err));
 });
+
 
 router.get('/course/edit/:id', checkRoles('ADMIN'), (req, res) => {
 	const { id } = req.params;
