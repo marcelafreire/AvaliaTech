@@ -127,8 +127,9 @@ margin-top: 3rem;
 .course-list-cards {
 	display: flex;
 	flex-wrap: wrap;
-	width: 60%;
+	width: 95%;
 	height: 10rem;
+	margin-left: 3rem;
 }
 
 /* .course-list-cards-container {
@@ -155,4 +156,29 @@ margin-top: 3rem;
 	padding: 0.5rem;
 	width: 20rem;
 	border: none;
+}
+
+.filter-cards{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.filter-course-print {
+	display: flex;
+	flex-direction: row;
+
+}
+
+.filter-course-print a {
+	width: 6rem;
+	height: 1.3rem;
+	background-color: #060e41;
+	color: white;
+	border-radius: 1rem;
+	margin-left: 1rem;
+	text-align: center;
+	font-size: 0.8rem;
+	padding-top: 0.2rem;
 }
