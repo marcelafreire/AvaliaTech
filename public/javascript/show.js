@@ -53,6 +53,8 @@ for (let i = 0; i < reviewDivs.length; i++) {
 				if (response.data && response.data.courseDeleted) {
 					window.location.href = `${window.location.origin}/course/list`;
 				}
+				document.querySelector('#alreadyReviwedMsg').innerText = '';
+				document.querySelector('#addReviewCourseForm').removeAttribute('hidden');
 				const div = document.querySelector(`#review${i}`);
 				div.parentNode.removeChild(div);
 			})

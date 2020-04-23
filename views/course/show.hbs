@@ -101,38 +101,39 @@
   {{/each}}
   </ul>
 
+  <div id="addReviewCourseForm" {{#unless loggedUser}} hidden {{else}} {{#if haveAReview}} hidden {{/if}} {{/unless}}>
+    <form class="review-course-form" action="/reviews/add/{{_id}}" method="post">
 
-{{#unless haveAReview}}
-{{#if loggedUser}}
+      <h3>Adicionar Avaliação</h3>
+      <h2>{{writer.username}}</h2>
 
-  <form class="review-course-form" action="/reviews/add/{{_id}}" method="post">
+      <label>Avaliação:</label>
+      <textarea type="text" name="text" collums="10" rows="10" required></textarea>
+      <div class="rating-course-review">
+        <label for="">Nota:</label>
+        <select name="rating" required>
+          {{!-- <option value="6">--</option> --}}
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
 
-    <h3>Adicionar Avaliação</h3>
-    <h2>{{writer.username}}</h2>
+      <button class="course-button" type="submit">Adicionar</button>
+      </form>
+  </div>
 
-    <label>Avaliação:</label>
-    <textarea type="text" name="text" collums="10" rows="10" required></textarea>
-    <div class="rating-course-review">
-      <label for="">Nota:</label>
-      <select name="rating" required>
-        {{!-- <option value="6">--</option> --}}
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-    </div>
-
-    <button class="course-button" type="submit">Adicionar</button>
-    </form>
-  {{else}}
+{{#unless loggedUser}}
     <h3>Faça login para avaliar o curso</h3>
+{{else}}
+  {{#if haveAReview}}
+      <h3 id="alreadyReviwedMsg">Você já fez uma avaliação desse curso</h3>
   {{/if}}
-  {{else}}
-    <h3>Você já fez uma avaliação desse curso</h3>
 {{/unless}}
+
 {{/with}}
 </section>
 
