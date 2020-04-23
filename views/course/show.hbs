@@ -103,7 +103,7 @@
 
 
 {{#unless haveAReview}}
-{{#if loggedUser}}
+{{!-- {{#if loggedUser}} --}}
 
   <form class="review-course-form" action="/reviews/add/{{_id}}" method="post">
 
@@ -127,9 +127,9 @@
 
     <button class="course-button" type="submit">Adicionar</button>
     </form>
-  {{/if}}
+  {{!-- {{/if}} --}}
 {{/unless}}
-    {{/with}}
+{{/with}}
 </section>
 
 

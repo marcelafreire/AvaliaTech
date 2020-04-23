@@ -182,14 +182,14 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 				course.reviews = [ review ];
 				Course.findOneAndUpdate({ _id: course._id }, course).then((response) => {
 					res.redirect('/course/list');
+				});
 			});
-		});
-	})
+		})
 		.catch((err) => {
 			console.log(err);
 			res.render('error');
 		});
-	});
+});
 
 router.get('/course/:id', (req, res) => {
 	let loggedUser;
@@ -221,6 +221,7 @@ router.get('/course/:id', (req, res) => {
 				) {
 					review.isOwner = true;
 					course.haveAReview = true;
+					course.loggedUser = loggedUser;
 				}
 
 				let ratings = [];
@@ -230,7 +231,7 @@ router.get('/course/:id', (req, res) => {
 				review.ratings = ratings;
 				return review;
 			});
-			
+
 			if (req.user.role === 'ADMIN') {
 				course.isAdmin = true;
 			}
@@ -243,7 +244,6 @@ router.get('/course/:id', (req, res) => {
 		})
 		.catch((err) => console.log(err));
 });
-
 
 router.get('/course/edit/:id', checkRoles('ADMIN'), (req, res) => {
 	let loggedUser;
