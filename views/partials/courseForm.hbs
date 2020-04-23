@@ -15,12 +15,12 @@
                 
                 <div class="course-form-field">
                     <label class="course-form-label" for="value">Valor</label>
-                    <input class="course-form-input course-form-input-number" type="number" name="value" value="{{course.value}}" required>
+                    <input class="course-form-input course-form-input-number" type="number" name="value" step="0.01" min= value="{{course.value}}" required>
                 </div>
                 
                 <div class="course-form-field">
                     <label class="course-form-label" for="duration">Duração do Curso em Horas </label>
-                    <input class="course-form-input course-form-input-number" type="number" name="duration" value="{{course.duration}}">
+                    <input class="course-form-input course-form-input-number" type="number" name="duration" step="0.01" value="{{course.duration}}">
                 </div>
                 <div class="course-form-field">
                     <label class="course-form-label" for="format">Formato</label>
