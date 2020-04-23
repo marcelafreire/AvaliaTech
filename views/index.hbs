@@ -1,4 +1,3 @@
-
 <section class="banner-home">
     <nav class="nav">
         <div id="nav-1" class="div-nav">
@@ -21,21 +20,23 @@
         </div>
         {{/unless}}
 
-    {{#if user}}
-    <div id="nav-2" class="div-nav">
-        <a id="login" href="/logout">logout</a>
-        <a id="login" href="/profile/{{user._id}}">perfil</a>
-    </div>
-    {{/if}} 
+        {{#if user}}
+        <div id="nav-2" class="div-nav">
+            <a id="login" href="/logout">logout</a>
+            <div class="profile-nav">
+                <img class="img-index" src="{{user.imgPath}}">
+                <a href="/profile/{{user._id}}">{{user.username}}</a>
+            </div>
 
-
+        </div>
+        {{/if}}
 
     </nav>
 
     <div class="title">
         <h1>Avalie cursos na área da <span style="color: #63caa2">tecnologia</span></h1>
         <p>Avalie cursos e encontre avaliações. </p>
-        <a href="/course/list"><button class="btn-banner">Encontrar avaliações</button></a>
+        <a class="btn-banner" href="/course/list">Encontrar avaliações</a>
     </div>
 
 </section>
@@ -46,8 +47,9 @@
     <div class="cards-home">
         {{#each course}}
         <div class="cards">
-            <a href="course/{{id}}"><h4>{{name}}</h4> 
-            <p><i class="fas fa-graduation-cap"></i>{{institution}}</p>
+            <a href="course/{{id}}">
+                <h4>{{name}}</h4>
+                <p><i class="fas fa-graduation-cap"></i>{{institution}}</p>
             </a>
         </div>
 
@@ -55,6 +57,6 @@
 
     </div>
 
-    <a href="course/list"><button class="btn-home">Ver mais</button></a>
+    <a class="btn-home" href="course/list">Ver mais</a>
 
 </section>

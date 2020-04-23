@@ -20,6 +20,9 @@
     margin-top: 3rem;
 
 }
+.section-course a:visited  {
+    color: #060E41;
+}
 
 .title-course {
     background-color:  #63CAA2;
@@ -88,8 +91,6 @@
 }
 
 
-
-
 .course-reviews-title {
 background-color: rgb(218, 218, 218);
 border-radius: 0.7rem;
@@ -127,7 +128,7 @@ margin: 4rem 0 2rem 0;
     display: flex;
     justify-content: flex-end;
     width: 18rem;
-    margin-bottom: 2rem;
+    margin: 1rem 0;
 }
 
 .edit-course-owner{
@@ -172,6 +173,14 @@ button.edit {
     border-radius: 0.5rem;
     border-style: none;
 }
+
+button.save {
+    background-color: #060E41;
+    color: white;
+    border-radius: 0.5rem;
+    border-style: none;
+}
+
 button.delete {
     background-color: #060E41;
     color: white;
@@ -179,6 +188,12 @@ button.delete {
     border-style: none;
 }
 
+#button.edit {
+    background-color: #060E41;
+    color: white;
+    border-radius: 0.5rem;
+    border-style: none;
+}
 
 .review-course-form {
     display: flex;
@@ -199,6 +214,7 @@ button.delete {
     background-color: #f1efef;
     border-radius: 0.2rem;
     resize: none;
+    outline: none;
 }
 
 .review-course-form label {
@@ -223,5 +239,8 @@ padding: 1rem;
 font-size: 1rem;
 }
 
+.is-owner {
+    margin-top: 1rem;
+}
 
 

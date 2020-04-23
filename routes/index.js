@@ -8,7 +8,7 @@ const bcryptSalt = 10;
 
 
 let findCourse = 
-	 Course.find()
+	 Course.find().limit(4)
 		.then((course) => {
 			return course
 		})

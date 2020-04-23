@@ -1,4 +1,5 @@
 
+
 <section class="profile-container">
 
 <div class="profile-container-div">
@@ -20,17 +21,15 @@
     </div>
   </form>
 
-<form action="/img-edit?id={{_id}}" method="POST" enctype="multipart/form-data">
-      <label>Mudar foto</label>
+<form class="change-photo" action="/img-edit?id={{_id}}" method="POST" enctype="multipart/form-data">
+      <label>Mudar foto</label><br>
       <input type="file" name="photo"><br>
       <button id="btn-photo" class="course-button" type="submit">Salvar</button>
   </form>
+
     <img class="img-profile" src="{{imgPath}}"><br>
 
-
-<button class="course-button"><a id="btn-photo" href="/"> voltar</a></button>
 </section>
-
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/javascript/edit.js"></script>
