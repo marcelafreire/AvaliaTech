@@ -103,7 +103,7 @@
 
 
 {{#unless haveAReview}}
-{{!-- {{#if loggedUser}} --}}
+{{#if loggedUser}}
 
   <form class="review-course-form" action="/reviews/add/{{_id}}" method="post">
 
@@ -127,7 +127,11 @@
 
     <button class="course-button" type="submit">Adicionar</button>
     </form>
-  {{!-- {{/if}} --}}
+  {{else}}
+    <h3>Faça login para avaliar o curso</h3>
+  {{/if}}
+  {{else}}
+    <h3>Você já fez uma avaliação desse curso</h3>
 {{/unless}}
 {{/with}}
 </section>

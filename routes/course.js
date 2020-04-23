@@ -214,6 +214,8 @@ router.get('/course/:id', (req, res) => {
 				course.isAdmin = true;
 			}
 
+			course.loggedUser = loggedUser;
+
 			course.reviews = course.reviews.map((review) => {
 				if (
 					(review.writer && req.user && review.writer._id.toString() === req.user._id.toString()) ||
@@ -221,7 +223,6 @@ router.get('/course/:id', (req, res) => {
 				) {
 					review.isOwner = true;
 					course.haveAReview = true;
-					course.loggedUser = loggedUser;
 				}
 
 				let ratings = [];
