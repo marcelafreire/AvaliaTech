@@ -192,7 +192,7 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 		});
 });
 
-router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
+router.get('/course/:id', (req, res) => {
 	let loggedUser;
 	if (req.user) {
 		loggedUser = req.user;
@@ -210,12 +210,15 @@ router.get('/course/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 		})
 		.then((course) => {
 			//Owner Logic and Ratings
-			if (req.user.role === 'ADMIN') {
+			if (req.user && req.user.role === 'ADMIN') {
 				course.isAdmin = true;
 			}
 
 			course.reviews = course.reviews.map((review) => {
-				if ((review.writer && review.writer._id.toString() === req.user._id.toString()) || course.isAdmin) {
+				if (
+					(review.writer && req.user && review.writer._id.toString() === req.user._id.toString()) ||
+					course.isAdmin
+				) {
 					review.isOwner = true;
 					course.haveAReview = true;
 				}

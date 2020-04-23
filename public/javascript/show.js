@@ -6,7 +6,6 @@ const toggleTextAreaBoxEdit = (idx) => {
 	reviewDiv.querySelector('.edit').toggleAttribute('hidden');
 };
 
-
 const calculateAvgAndShow = () => {
 	const ratingsHTML = document.querySelectorAll('.ratingReview');
 	let sum = 0;
@@ -15,7 +14,7 @@ const calculateAvgAndShow = () => {
 		console.log(sum);
 	}
 	const avg = sum / ratingsHTML.length;
-	document.querySelector('#avg').innerText = `${avg}`;
+	document.querySelector('#avg').innerText = `${avg.toFixed(2)}`;
 };
 calculateAvgAndShow();
 

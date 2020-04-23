@@ -100,6 +100,7 @@
   </ul>
 
 {{#unless haveAReview}}
+{{#if loggedUser}}
   <form class="review-course-form" action="/reviews/add/{{_id}}" method="post">
 
     <h3>Adicionar Avaliação</h3>
@@ -122,6 +123,7 @@
 
     <button class="course-button" type="submit">Adicionar</button>
     </form>
+  {{/if}}
 {{/unless}}
     {{/with}}
 </section>

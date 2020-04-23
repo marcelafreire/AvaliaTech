@@ -7,7 +7,8 @@ const User = require('../models/user');
 const Review = require('../models/review');
 
 mongoose
-	.connect(process.env.MONGODB_URI)
+	// .connect(process.env.MONGODB_URI)
+	.connect('mongodb://heroku_9dc9b1sc:qjlie1923qoqvgdt3vfaurdu7g@ds153752.mlab.com:53752/heroku_9dc9b1sc')
 	.then((response) => {
 		console.log(`Connected to Mongo! Database name: "${response.connections[0].name}"`);
 
