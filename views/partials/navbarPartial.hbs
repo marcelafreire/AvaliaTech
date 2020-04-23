@@ -12,21 +12,22 @@
             </form>
         </div>
 
-        {{#unless user}}
+        {{#unless loggedUser}}
         <div id="nav-2" class="div-nav">
             <a id="login-partial" href="/login">Login</a>
             <a id="signup-partial" href="/signup">Cadastre-se</a>
         </div>
         {{/unless}}
 
-    {{#if user}}
+    {{#if loggedUser}}
     <div id="nav-2" class="div-nav">
         <a id="login-partial" href="/logout">logout</a>
        <div class="profile-nav">
-           <img class="img-index" src="{{user.imgPath}}">
-           <a href="/profile/{{user._id}}">{{user.username}}</a>
+           <img class="img-index" src="{{loggedUser.imgPath}}">
+           <a href="/profile/{{loggedUser._id}}">{{loggedUser.username}}</a>
         </div>
     </div>
     {{/if}} 
 
     </nav>
+

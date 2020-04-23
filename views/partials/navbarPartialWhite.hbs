@@ -1,4 +1,3 @@
-
     <nav class="nav">
         <div id="nav-1" class="div-nav">
             <a href="/"><img id="logo" src="../images/logo.png"> </a>
@@ -13,23 +12,24 @@
             </form>
         </div>
 
-        {{#unless user}}
+        {{#unless loggedUser}}
         <div id="nav-2" class="div-nav">
             <a id="login" href="/login">Login</a>
             <a id="signup" href="/signup">Cadastre-se</a>
         </div>
         {{/unless}}
 
-    {{#if user}}
+    {{#if loggedUser}}
     <div id="nav-2" class="div-nav">
         <a id="login" href="/logout">logout</a>
        <div class="profile-nav">
-           <img class="img-index" src="{{user.imgPath}}">
-           <a href="/profile/{{user._id}}">{{user.username}}</a>
+           <img class="img-index" src="{{loggedUser.imgPath}}">
+           <a href="/profile/{{loggedUser._id}}">{{loggedUser.username}}</a>
         </div>
     </div>
     {{/if}} 
 
     </nav>
+
 
 

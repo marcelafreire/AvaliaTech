@@ -1,4 +1,7 @@
 
+{{> navbarPartial}}
+{{#with user}}
+
 
 <section class="profile-container">
 
@@ -30,6 +33,8 @@
     <img class="img-profile" src="{{imgPath}}"><br>
 
 </section>
+
+{{/with}}
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/javascript/edit.js"></script>
