@@ -25,7 +25,7 @@ mongoose
 				password: hashPass,
 				role: 'ADMIN',
 				email: 'massao@avaliatech.com',
-				imgPath: "http://res.cloudinary.com/deyy3glzl/image/upload/v1586884504/project/ico1.png.png",
+				imgPath: "https://res.cloudinary.com/deyy3glzl/image/upload/v1587652134/perfil-avalia_uekcwz.png",
 				originalName: ''
 			},
 			{
@@ -33,7 +33,7 @@ mongoose
 				password: hashPass,
 				role: 'ADMIN',
 				email: 'marcela@avaliatech.com',
-				imgPath: "http://res.cloudinary.com/deyy3glzl/image/upload/v1586884504/project/ico1.png.png",
+				imgPath: "hhttps://res.cloudinary.com/deyy3glzl/image/upload/v1587652134/perfil-avalia_uekcwz.png",
 				originalName: ''
 			},
 			{
@@ -41,7 +41,7 @@ mongoose
 				password: hashPass,
 				role: 'GUEST',
 				email: 'nassau@avaliatech.com',
-				imgPath: "http://res.cloudinary.com/deyy3glzl/image/upload/v1586884504/project/ico1.png.png",
+				imgPath: "https://res.cloudinary.com/deyy3glzl/image/upload/v1587652134/perfil-avalia_uekcwz.png",
 				originalName: ''
 			}
 		];
@@ -73,7 +73,7 @@ mongoose
 						name: 'Curso Desenvolvimento Web com ASP.NET e Visual Studio 2017 (Online - Ao Vivo)',
 						institution: 'Impacta',
 						value: 729.24,
-						duration: 60,
+						duration: 60.00,
 						format: 'online',
 						link: 'https://www.impacta.com.br/curso/Desenvolvimento-Web-com-ASPNET-e-Visual-Studio-2017-Online-Ao-Vivo.php',
 						category: 'Desenvolvimento Web'
@@ -81,12 +81,67 @@ mongoose
 					{
 						name: 'Desenvolvimento Web Full Stack',
 						institution: 'Digital House',
-						value: 1800,
+						value: 1.800,
 						duration: 150,
 						format: 'presencial',
 						link: 'https://www.digitalhouse.com/br/curso/desenvolvimento-web-full-stack',
 						category: 'Desenvolvimento Web'
+					},
+					{
+						name: 'Data Analytics',
+						institution: 'Digital House',
+						value: 2.000,
+						duration: 180,
+						format: 'presencial',
+						link: 'https://www.digitalhouse.com/br/educacao/especialize-se-em-dados',
+						category: 'Ciência de dados'
+					},
+					{
+						name: 'Introdução à Ciência de Dados 2.0',
+						institution: 'Data Science Academy',
+						value: 00,
+						duration: 8,
+						format: 'Online',
+						link: 'https://www.datascienceacademy.com.br/course?courseid=introduo--cincia-de-dados',
+						category: 'Ciência de Dados'
+					},
+					{
+						name: 'Desenvolvimento Mobile IOS',
+						institution: 'Digital House',
+						value: 2.000,
+						duration: 200,
+						format: 'Presencial',
+						link: 'https://www.digitalhouse.com/br/curso/desenvolvimento-mobile-ios',
+						category: 'Aplicativos Mobile'
+					},
+					{
+						name: 'Formação em Data Science',
+						institution: 'Preditiva.ai',
+						value: 10.990,
+						duration: 240,
+						format: 'presencial',
+						link: 'https://preditiva.ai/curso-ciencia-de-dados/',
+						category: 'Banco de Dados'
+					},
+					{
+						name: 'Curso de desenvolvimento de Games completo',
+						institution: 'Preditiva.ai',
+						value: 997.00,
+						duration: 350,
+						format: 'Online',
+						link: 'https://cursos.dankicode.com/curso-dev-games',
+						category: 'Desenvolvimento de Jogos'
+					},
+					{
+						name: 'Como Montar sua Loja Virtual - O Mapa Completo do E-commerce',
+						institution: 'Preditiva.ai',
+						value: 23.99,
+						duration: 11.5,
+						format: 'Online',
+						link: 'https://www.udemy.com/course/como-montar-uma-loja-virtual',
+						category: 'Desenvolvimento de Jogos'
 					}
+
 
 
 				];

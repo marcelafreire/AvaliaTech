@@ -14,15 +14,15 @@
 
         {{#unless loggedUser}}
         <div id="nav-2" class="div-nav">
-            <a id="login" href="/login">Login</a>
-            <a id="signup" href="/signup">Cadastre-se</a>
+            <a id="login-partial" href="/login">Login</a>
+            <a id="signup-partial" href="/signup">Cadastre-se</a>
         </div>
         {{/unless}}
 
     {{#if loggedUser}}
     <div id="nav-2" class="div-nav">
         <a id="login" href="/logout">logout</a>
-       <div class="profile-nav">
+       <div class="profile-nav profile-partial">
            <img class="img-index" src="{{loggedUser.imgPath}}">
            <a href="/profile/{{loggedUser._id}}">{{loggedUser.username}}</a>
         </div>

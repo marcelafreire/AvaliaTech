@@ -111,73 +111,72 @@ passport.use(
 );
 
 //social login google
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-passport.use(
-	new GoogleStrategy(
-		{
-			clientID: process.env.GOOGLE_id,
-			clientSecret: process.env.GOOGLE_pass,
-			callbackURL: '/auth/google/callback'
-		},
-		(accessToken, refreshToken, profile, done) => {
-			// to see the structure of the data in received response:
-			console.log('Google account details:', profile);
+// passport.use(
+// 	new GoogleStrategy(
+// 		{
+// 			clientID: process.env.GOOGLE_id,
+// 			clientSecret: process.env.GOOGLE_pass,
+// 			callbackURL: '/auth/google/callback'
+// 		},
+// 		(accessToken, refreshToken, profile, done) => {
+// 			// to see the structure of the data in received response:
 
-			User.findOne({
-				googleID: profile.id
-			})
-				.then((user) => {
-					if (user) {
-						done(null, user);
-						return;
-					}
+// 			User.findOne({
+// 				googleID: profile.id
+// 			})
+// 				.then((user) => {
+// 					if (user) {
+// 						done(null, user);
+// 						return;
+// 					}
 
-					User.create({
-						googleID: profile.id
-					})
-						.then((newUser) => {
-							done(null, newUser);
-						})
-						.catch((err) => done(err)); // closes User.create()
-				})
-				.catch((err) => done(err)); // closes User.findOne()
-		}
-	)
-);
+// 					User.create({
+// 						googleID: profile.id
+// 					})
+// 						.then((newUser) => {
+// 							done(null, newUser);
+// 						})
+// 						.catch((err) => done(err)); // closes User.create()
+// 				})
+// 				.catch((err) => done(err)); // closes User.findOne()
+// 		}
+// 	)
+// );
 
 // social login facebook
-const FacebookStrategy = require('passport-facebook').Strategy;
+// const FacebookStrategy = require('passport-facebook').Strategy;
 
-passport.use(
-	new FacebookStrategy(
-		{
-			clientID: process.env.FACEBOOK_APP_ID,
-			clientSecret: process.env.FACEBOOK_APP_SECRET,
-			callbackURL: process.env.callbackURL_FB,
-		},
-		function(accessToken, refreshToken, profile, done) {
-			User.findOne({
-				facebookID: profile.id
-			})
-				.then((user) => {
-					if (user) {
-						done(null, user);
-						return;
-					}
+// passport.use(
+// 	new FacebookStrategy(
+// 		{
+// 			clientID: process.env.FACEBOOK_APP_ID,
+// 			clientSecret: process.env.FACEBOOK_APP_SECRET,
+// 			callbackURL: process.env.callbackURL_FB,
+// 		},
+// 		function(req, res, accessToken, refreshToken, profile, done) {
+// 			User.findOne({
+// 				facebookID: profile.id
+// 			})
+// 				.then((user) => {
+// 					if (user) {
+// 						done(null, user);
+// 						return;
+// 					}
 
-					User.create({
-						facebookID: profile.id
-					})
-						.then((newUser) => {
-							done(null, newUser);
-						})
-						.catch((err) => done(err)); // closes User.create()
-				})
-				.catch((err) => done(err)); // closes User.findOne()
-		}
-	)
-);
+// 					User.create({
+// 						facebookID: profile.id
+// 					})
+// 						.then((newUser) => {
+// 							done(null, newUser);
+// 						})
+// 						.catch((err) => done(err)); // closes User.create()
+// 				})
+// 				.catch((err) => done(err)); // closes User.findOne()
+// 		}
+// 	)
+// );
 
 //passport initialization
 app.use(passport.initialize());

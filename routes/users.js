@@ -26,32 +26,28 @@ router.post(
 
 //SOCIAL LOGIN
 //google
-router.get(
-	'/auth/google',
-	passport.authenticate('google', {
-		scope: [ 'https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email' ]
-	})
-);
-router.get(
-	'/auth/google/callback',
-	passport.authenticate('google', {
-		successRedirect: '/',
-		failureRedirect: '/login'
-	})
-);
+// router.get(
+// 	'/auth/google',
+// 	passport.authenticate('google', {
+// 		scope: [ 'https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email' ]
+// 	})
+// );
+// router.get(
+// 	'/auth/google/callback',
+// 	passport.authenticate('google', {
+// 		successRedirect: '/',
+// 		failureRedirect: '/login'
+// 	})
+// );
 
 //facebook
-router.get('/auth/facebook', passport.authenticate('facebook'));
+// router.get('/auth/facebook', passport.authenticate('facebook'));
 
-router.get(
-	'/auth/facebook/callback',
-	passport.authenticate('facebook', {
-		failureRedirect: '/login'
-	}),
-	function(req, res) {
-		res.redirect('/');
-	}
-);
+// router.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/login'}),
+// 	function(req, res) {
+// 		res.redirect(`/profile/${id}`);
+// 	}
+// );
 
 //SIGNUP
 //get

@@ -243,4 +243,8 @@ font-size: 1rem;
     margin-top: 1rem;
 }
 
-
+.fa-star {
+    color: #ffc200;
+    padding-right: 0.5rem;
+    width: 0.9rem;
+}
