@@ -232,10 +232,6 @@ router.get('/course/:id', (req, res) => {
 				return review;
 			});
 
-			if (req.user.role === 'ADMIN') {
-				course.isAdmin = true;
-			}
-
 			res.render('course/show', {
 				course,
 				user: req.user,
