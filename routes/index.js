@@ -5,13 +5,14 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
 
-let findCourse = Course.find()
+let findCourse = Course.find().limit(4)
 	.then((course) => {
 		return course;
 	})
 	.catch((error) => {
 		console.log('Error ', error);
 	});
+
 
 let findUser = (id) => {
 	return User.findOne({ _id: id })

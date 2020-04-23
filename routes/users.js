@@ -56,44 +56,40 @@ router.get(
 //SIGNUP
 //get
 router.get('/signup', (req, res, next) => {
-	res.render('users/signup');
-});
-//post
-router.post('/signup', uploadCloud.single('photo'), (req, res, next) => {
-	const username = req.body.username;
-	const password = req.body.password;
-	const email = req.body.email;
+    res.render('users/signup');
+})
+//post 
+router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const email = req.body.email;
 
-	if (username === '' || password === '' || email === '') {
-		res.render('users/signup', { errorMessage: 'Preencha nome de usuário, e-mail e senha corretamente' });
-		return;
-	}
-	User.findOne({ username }, 'username', (err, user) => {
-		if (user !== null) {
-			res.render('users/signup', { errorMessage: 'O usuário já existe' });
-			return;
-		}
-		const salt = bcrypt.genSaltSync(bcryptSalt);
-		const hashPass = bcrypt.hashSync(password, salt);
-
-		const newUser = new User({
-			username,
-			password: hashPass,
-			email,
-			confirmationCode: token
-		});
-
-		newUser
-			.save()
-			.then((user) => {
-				res.redirect('/');
-			})
-			.catch((err) =>
-				res.status(400).render('index', {
-					errorMessage: err.errmsg
-				})
-			);
-	});
+    if (username === "" || password === "" || email === "") {
+      res.render("users/signup", { errorMessage: "Preencha nome de usuário, e-mail e senha corretamente" });
+      return;
+    }
+    User.findOne({ username }, "username", (err, user) => {
+        if (user !== null) {
+          res.render("users/signup", { errorMessage: "O usuário já existe" });
+          return;
+        }
+        const salt = bcrypt.genSaltSync(bcryptSalt);
+        const hashPass = bcrypt.hashSync(password, salt);
+        
+        const newUser = new User({
+          username,
+          password: hashPass,
+          email
+        });
+    
+       newUser.save()
+       .then(user => {
+          res.redirect('/');
+        })
+      .catch(err => res.status(400).render('index', {
+        errorMessage: err.errmsg
+      })); 
+    })
 });
 
 //PROFILE

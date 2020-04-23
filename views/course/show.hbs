@@ -4,12 +4,14 @@
     {{#with course}}
     <div class="title-course">
       <h2>{{name}}</h2><br>
+
       {{#if isAdmin}}
       <div>
-        <a class="course.detail-edit" href="/course/edit/{{_id}}">Edit</a>
+        <a href="/course/edit/{{_id}}">Edit</a>
         <a href="/course/delete/{{_id}}">Delete</a>
       </div>
       {{/if}}
+
       <br>
     </div>
 
@@ -99,8 +101,10 @@
   {{/each}}
   </ul>
 
+
 {{#unless haveAReview}}
 {{#if loggedUser}}
+
   <form class="review-course-form" action="/reviews/add/{{_id}}" method="post">
 
     <h3>Adicionar Avaliação</h3>

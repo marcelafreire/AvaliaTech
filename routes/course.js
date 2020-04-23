@@ -170,7 +170,6 @@ router.get('/course/add', (req, res) => {
 router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 	const { name, institution, value, duration, format, link, category, text, rating } = req.body;
 	const newCourse = { name, institution, value, duration, format, category, link };
-
 	Course.create(newCourse)
 		.then((course) => {
 			console.log(course);
@@ -183,14 +182,14 @@ router.post('/course/add', ensureLogin.ensureLoggedIn(), (req, res) => {
 				course.reviews = [ review ];
 				Course.findOneAndUpdate({ _id: course._id }, course).then((response) => {
 					res.redirect('/course/list');
-				});
 			});
-		})
+		});
+	})
 		.catch((err) => {
 			console.log(err);
 			res.render('error');
 		});
-});
+	});
 
 router.get('/course/:id', (req, res) => {
 	let loggedUser;
@@ -210,6 +209,7 @@ router.get('/course/:id', (req, res) => {
 		})
 		.then((course) => {
 			//Owner Logic and Ratings
+
 			if (req.user && req.user.role === 'ADMIN') {
 				course.isAdmin = true;
 			}
@@ -230,6 +230,10 @@ router.get('/course/:id', (req, res) => {
 				review.ratings = ratings;
 				return review;
 			});
+			
+			if (req.user.role === 'ADMIN') {
+				course.isAdmin = true;
+			}
 
 			res.render('course/show', {
 				course,
@@ -239,6 +243,7 @@ router.get('/course/:id', (req, res) => {
 		})
 		.catch((err) => console.log(err));
 });
+
 
 router.get('/course/edit/:id', checkRoles('ADMIN'), (req, res) => {
 	let loggedUser;

@@ -5,13 +5,11 @@ body {
 	font-family: 'Lato', sans-serif;
 	width: 100%;
 	padding: 0;
+	outline: none;
 }
 
 a {
 	text-decoration: none;
-}
-a:visited {
-	color: #060e41;
 }
 
 /* ----- HOME ----- */
@@ -36,7 +34,14 @@ a:visited {
 	height: 5rem;
 	color: #060e41;
 }
+.nav a {
+	color: #060e41;
+	transition: all 0.4s ease 0s;
+}
 
+.nav a:hover {
+	color: #63caa2;
+}
 .div-nav {
 	display: flex;
 	align-items: center;
@@ -68,6 +73,7 @@ a:visited {
 	border-style: none;
 	width: 15rem;
 	height: 1.8rem;
+	outline: none;
 }
 
 #btn-search {
@@ -85,6 +91,12 @@ a:visited {
 	padding: 0.2rem 0.8rem;
 }
 
+#login:hover {
+	background-color: white;
+	color:#060e41;
+	transition: all 0.4s ease 0s;
+	
+}
 #signup {
 	border-radius: 1rem;
 	background-color: #060e41;
@@ -92,13 +104,43 @@ a:visited {
 	color: white;
 }
 
+#signup:hover {
+	background-color: white;
+	color:#060e41;
+	transition: all 0.4s ease 0s;
+}
+
+
+#login-partial {
+	border-radius: 1rem;
+	border: 0.09rem solid #060e41;
+	padding: 0.2rem 0.8rem;
+}
+
+#login-partial:hover {
+	background-color: #060e41;
+	color:#060e41;
+	transition: all 0.4s ease 0s;
+	
+}
+#signup-partial {
+	border-radius: 1rem;
+	background-color: #060e41;
+	padding: 0.3rem 1rem;
+	color: white;
+}
+
+#signup-partial:hover {
+	background-color: white;
+	color:#63caa2;
+	transition: all 0.4s ease 0s;
+}
+
 .title {
-	/* width: 30rem;*/
 	height: 35rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	/* align-items: center; */
 	flex-wrap: wrap;
 	padding-left: 10rem;
 }
@@ -131,14 +173,16 @@ a:visited {
 	border-style: none;
 	color: white;
 	padding: 0.8rem 1.5rem;
-	box-shadow: 1px 3px 50px 3px rgba(73, 180, 157, 0.7);
+	width: 10rem;
+	box-shadow: 1px 3px 50px 2px rgba(73, 180, 157, 0.7);
 }
 
 .btn-banner:hover {
 background: #060E41;
-letter-spacing: 1px;
+padding: 0.8rem 1.9rem;
 box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
 transition: all 0.4s ease 0s;
+box-shadow: 1px 3px 50px 4px  rgba(73, 180, 157, 0.7);
 }
 
 
@@ -169,7 +213,7 @@ transition: all 0.4s ease 0s;
 	flex-wrap: wrap;
 	flex-direction: row;
 	color: rgb(37, 37, 37);
-	box-shadow: 0px 0px 40px 11px rgba(207, 226, 219, 0.91);
+	box-shadow: 0px 0px 40px 9px rgba(207, 226, 219, 0.7);
 }
 
 .cards h4 {
@@ -211,6 +255,8 @@ transition: all 0.4s ease 0s;
 	box-shadow: 0px 0px 37px -2px rgba(73, 180, 157, 0.61);
 	background-color: white;
 	box-shadow: 0px 0px 37px -2px rgba(73, 180, 157, 0.61);
+	transition: all 0.4s ease 0s;
+
 
 }
 
@@ -229,3 +275,26 @@ transition: all 0.4s ease 0s;
 	bottom: 0;
 	width: 100%;
 }
+
+.profile-nav {
+display: flex;
+flex-direction: column;
+align-items: center;
+font-size: 1rem;
+font-weight: 700;
+}
+.img-index {
+	width: 2rem;
+	border-radius: 50%;
+}
+
+.profile-nav a:hover {
+color: white;
+transition: all 0.4s ease 0s;
+}
+
+
+@media screen and (max-width: 600px) {
+
+	}
+  

@@ -26,7 +26,7 @@ mongoose
 				password: hashPass,
 				role: 'ADMIN',
 				email: 'massao@avaliatech.com',
-				path: '',
+				imgPath: "http://res.cloudinary.com/deyy3glzl/image/upload/v1586884504/project/ico1.png.png",
 				originalName: ''
 			},
 			{
@@ -34,7 +34,7 @@ mongoose
 				password: hashPass,
 				role: 'ADMIN',
 				email: 'marcela@avaliatech.com',
-				path: '',
+				imgPath: "http://res.cloudinary.com/deyy3glzl/image/upload/v1586884504/project/ico1.png.png",
 				originalName: ''
 			},
 			{
@@ -42,7 +42,7 @@ mongoose
 				password: hashPass,
 				role: 'GUEST',
 				email: 'nassau@avaliatech.com',
-				path: '',
+				imgPath: "http://res.cloudinary.com/deyy3glzl/image/upload/v1586884504/project/ico1.png.png",
 				originalName: ''
 			}
 		];
@@ -55,21 +55,41 @@ mongoose
 					{
 						name: 'JavaScript: Understanding the Weird Parts',
 						institution: 'Udemy',
-						image: 'https://img-a.udemycdn.com/course/240x135/364426_2991_5.jpg',
 						value: 21.99,
 						duration: 11.5,
 						format: 'online',
+						link: 'https://www.udemy.com/courses/search/?src=ukw&q=JavaScript%3A+Understanding+the+Weird+Parts',
 						category: 'Desenvolvimento Web'
 					},
 					{
-						name: 'Modern JavaScript From The Beginning',
-						institution: 'Not Udemy',
-						image: 'https://img-a.udemycdn.com/course/240x135/1463348_52a4_2.jpg',
-						value: 21.99,
+						name: 'Introdução à linguagem JavaScript',
+						institution: 'Udemy',
+						value: 50,
 						duration: 21.5,
+						format: 'online',
+						link: 'https://www.udemy.com/course/introducao-a-linguagem-javascript/',
+						category: 'Desenvolvimento Web'
+					},
+					{
+						name: 'Curso Desenvolvimento Web com ASP.NET e Visual Studio 2017 (Online - Ao Vivo)',
+						institution: 'Impacta',
+						value: 729.24,
+						duration: 60,
+						format: 'online',
+						link: 'https://www.impacta.com.br/curso/Desenvolvimento-Web-com-ASPNET-e-Visual-Studio-2017-Online-Ao-Vivo.php',
+						category: 'Desenvolvimento Web'
+					},
+					{
+						name: 'Desenvolvimento Web Full Stack',
+						institution: 'Digital House',
+						value: 1800,
+						duration: 150,
 						format: 'presencial',
+						link: 'https://www.digitalhouse.com/br/curso/desenvolvimento-web-full-stack',
 						category: 'Desenvolvimento Web'
 					}
+
+
 				];
 
 				Course.create(courses)
