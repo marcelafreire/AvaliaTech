@@ -21,12 +21,27 @@ router.put('/course/:courseID/api/review/:id', (req, res) => {
 });
 
 router.delete('/course/:courseID/api/review/:id', (req, res) => {
-	const { id } = req.params;
+	const { courseID, id } = req.params;
 
 	Review.findOneAndDelete({ _id: id })
 		.then((review) => {
 			console.log(review);
-			res.send('Deleted: ' + review);
+			Course.findOne({ _id: courseID })
+				.populate('reviews')
+				.then((course) => {
+					if (course.reviews && course.reviews.length === 0) {
+						Course.findOneAndDelete({ _id: courseID })
+							.then((course) => {
+								res.json({ courseDeleted: true });
+							})
+							.catch((err) => console.log(err));
+					} else {
+						res.json({ courseDeleted: false });
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		})
 		.catch((err) => console.log(err));
 });
