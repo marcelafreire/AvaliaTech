@@ -2,8 +2,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 50px;
-	height: 30rem;
+	flex-direction: column;
+	font-size: 3rem;
+	height: 25rem;
 	background-image: url("/images/cursos.png");
 	background-repeat: no-repeat;
 	background-size: auto;
@@ -11,7 +12,29 @@
 }
 
 .course-list-header b {
-	margin-left: 20px;
+	margin-left: 1rem;
+}
+.course-list-header p {
+font-size: 1.2rem;
+color: white;
+margin-top: 3rem;
+}
+
+.course-list-header a{
+	font-size: 1rem;
+	background-color:#060e41;
+	color: #ffffff;
+	border-radius: 2rem;
+	width: 11rem;
+	height: 2rem;
+	text-align: center;
+	padding-top: 0.4rem;
+}
+
+.course-list-header a:hover {
+	background-color:#ffffff;
+	color: #060e41;
+	transition: all 0.4s ease 0s;
 }
 
 .course-list-container {

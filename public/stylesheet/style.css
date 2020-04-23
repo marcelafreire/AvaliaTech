@@ -115,10 +115,11 @@ a {
 	border-radius: 1rem;
 	border: 0.09rem solid #060e41;
 	padding: 0.2rem 0.8rem;
+	
 }
 
 #login-partial:hover {
-	background-color: #060e41;
+	background-color: #ffffff;
 	color:#060e41;
 	transition: all 0.4s ease 0s;
 	
@@ -283,6 +284,7 @@ align-items: center;
 font-size: 1rem;
 font-weight: 700;
 }
+
 .img-index {
 	width: 2rem;
 	border-radius: 50%;
@@ -291,6 +293,11 @@ font-weight: 700;
 .profile-nav a:hover {
 color: white;
 transition: all 0.4s ease 0s;
+}
+
+.profile-partial:hover {
+	color: #060e41;
+	transition: all 0.4s ease 0s;
 }
 
 
