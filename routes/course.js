@@ -55,44 +55,58 @@ router.get('/course/list', (req, res) => {
 	} = req.query;
 	let userID;
 
+	const filter = [];
+
 	let query = {};
 
 	if (name) {
 		query.name = { $regex: name, $options: 'i' };
+		filter.push('nome: ' + name);
 	}
 
 	if (category) {
 		query.category = category;
+		filter.push('categoria: ' + category);
 	}
 
 	if (institution) {
 		query.institution = { $regex: institution, $options: 'i' };
+		filter.push('instituição: ' + institution);
 	}
 
 	if (minValue && maxValue) {
 		query.value = { $gte: minValue, $lte: maxValue };
+		filter.push('valor mínimo: ' + minValue);
+		filter.push('valor máximo: ' + maxValue);
 	} else {
 		if (minValue) {
 			query.value = { $gte: minValue };
+			filter.push('valor mínimo: ' + minValue);
 		}
 		if (maxValue) {
 			query.value = { $lte: maxValue };
+			filter.push('valor máximo: ' + maxValue);
 		}
 	}
 
 	if (minDuration && maxDuration) {
 		query.duration = { $gte: minDuration, $lte: maxDuration };
+		filter.push('duração mínima: ' + minValue);
+		filter.push('duração máxima: ' + maxValue);
 	} else {
 		if (minDuration) {
 			query.value = { $gte: minDuration };
+			filter.push('duração mínima: ' + minValue);
 		}
 		if (maxDuration) {
 			query.value = { $lte: maxDuration };
+			filter.push('duração máxima: ' + maxValue);
 		}
 	}
 
 	if (format) {
 		query.format = format;
+		filter.push('formato: ' + format);
 	}
 
 	const formats = Course.schema.path('format').enumValues;
@@ -103,6 +117,7 @@ router.get('/course/list', (req, res) => {
 		userID = req.user._id;
 		// aggregatePipeline.push({ $match: { writer: userID } });
 		findReviewsByWriter = Review.find({ writer: userID }, { _id: 1 });
+		filter.push('pelo usuário');
 	}
 
 	let aggregatePipeline = [];
@@ -111,12 +126,16 @@ router.get('/course/list', (req, res) => {
 
 	if (minAvg && maxAvg) {
 		aggregatePipeline.push({ $match: { average: { $gte: parseFloat(minAvg), $lte: parseFloat(maxAvg) } } });
+		filter.push('média mínima: ' + minAvg);
+		filter.push('média máxima: ' + maxAvg);
 	} else {
 		if (minAvg) {
 			aggregatePipeline.push({ $match: { average: { $gte: parseFloat(minAvg) } } });
+			filter.push('média mínima: ' + minAvg);
 		}
 		if (maxAvg) {
 			aggregatePipeline.push({ $match: { average: { $lte: parseFloat(maxAvg) } } });
+			filter.push('média máxima: ' + maxAvg);
 		}
 	}
 
@@ -143,7 +162,14 @@ router.get('/course/list', (req, res) => {
 							}
 						});
 					});
-					res.render('course/list', { categories, formats, userID, courses, loggedUser });
+					res.render('course/list', {
+						categories,
+						formats,
+						userID,
+						courses,
+						loggedUser,
+						filter: filter.join(' , ')
+					});
 				})
 				.catch((err) => console.log(err));
 		})

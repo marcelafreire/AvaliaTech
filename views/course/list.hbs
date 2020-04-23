@@ -94,13 +94,17 @@
             </div>
         </div>
     </form>
-    <div class="course-list-cards">
+        {{#if filter}}
+            <div>Filtrado por {{filter}}</div> <br><br>
+            <a href="/course/list"><button>Limpar</button></a><br><br>
+        {{/if}}
+        <div class="course-list-cards">
         {{#each courses}}
             <div class="course-list-cards-container">
                 {{> courseCard}}
             </div>
         {{/each}}
-    </div>
+        </div>
 </div>
 
 <div class="course-list-bottom">
