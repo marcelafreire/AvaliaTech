@@ -1,7 +1,6 @@
 
-{{> navbarPartial}}
+{{!-- {{> navbarPartial}} --}}
 {{#with user}}
-
 
 <section class="profile-container">
 
@@ -9,7 +8,7 @@
 
 <a class="password-profile" href="/password/{{_id}}">Redefinir senha</a>
 
-  <form action="/profile-edit?id={{_id}}" method="POST" enctype="multipart/form-data">
+  <form id="form-profile" action="/profile-edit?id={{_id}}" method="POST" enctype="multipart/form-data">
     <div class="form-container">
     
       <div class="profile-inputs">
