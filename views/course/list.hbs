@@ -2,10 +2,11 @@
 
 
 <div class="course-list-header">
-   <div> Cursos <b>avaliados</b> </div>
-        <p>Não encontrou o curso que procura?</p>
+    <div> Cursos <b>avaliados</b> </div>
+    <p>Não encontrou o curso que procura?</p>
     <a href="/course/add">Adicione um curso</a>
 </div>
+
 <div class="course-list-container">
     <form action="/course/list">
         <div class="course-list-filters">
@@ -27,13 +28,15 @@
                 <div class="course-list-filters-input-minmax">
                     <div>
                         <label for="minValue">min: </label>
-                        <input type="number" name="minValue" step="0.01" min="0" class="course-list-input course-list-input-number">
+                        <input type="number" name="minValue" step="0.01" min="0"
+                            class="course-list-input course-list-input-number">
                     </div>
                     <div>
                         <label for="maxValue">max: </label>
-                        <input type="number" name="maxValue" step="0.01" class="course-list-input course-list-input-number">
+                        <input type="number" name="maxValue" step="0.01"
+                            class="course-list-input course-list-input-number">
                     </div>
-                </div>                
+                </div>
             </div>
 
             <div class="course-list-filters-field">
@@ -41,11 +44,13 @@
                 <div class="course-list-filters-input-minmax">
                     <div>
                         <label for="minDuration">min: </label>
-                        <input type="number" name="minDuration" step="0.01" min="0" class="course-list-input course-list-input-number">
+                        <input type="number" name="minDuration" step="0.01" min="0"
+                            class="course-list-input course-list-input-number">
                     </div>
                     <div>
                         <label for="maxDuration">max: </label>
-                        <input type="number" name="maxDuration" step="0.01" class="course-list-input course-list-input-number">
+                        <input type="number" name="maxDuration" step="0.01"
+                            class="course-list-input course-list-input-number">
                     </div>
                 </div>
             </div>
@@ -55,11 +60,13 @@
                 <div class="course-list-filters-input-minmax">
                     <div>
                         <label for="minAvg">min: </label>
-                        <input type="number" name="minAvg" step="0.01" min="0" max="5" class="course-list-input course-list-input-number">
+                        <input type="number" name="minAvg" step="0.01" min="0" max="5"
+                            class="course-list-input course-list-input-number">
                     </div>
                     <div>
                         <label for="maxAvg">max: </label>
-                        <input type="number" name="maxAvg" step="0.01" min="0" max="5" class="course-list-input course-list-input-number">
+                        <input type="number" name="maxAvg" step="0.01" min="0" max="5"
+                            class="course-list-input course-list-input-number">
                     </div>
                 </div>
             </div>
@@ -67,9 +74,9 @@
             <div class="course-list-filters-field">
                 <label for="format" class="course-list-filters-label">Formato</label>
                 <select name="format" class="course-list-input course-list-input-select">
-                        <option value="" selected></option>
+                    <option value="" selected></option>
                     {{#each formats}}
-                        <option value="{{this}}">{{this}}</option>
+                    <option value="{{this}}">{{this}}</option>
                     {{/each}}
                 </select>
             </div>
@@ -77,15 +84,16 @@
             <div class="course-list-filters-field">
                 <label for="category" class="course-list-filters-label">Categoria</label>
                 <select name="category" class="course-list-input course-list-input-select">
-                        <option value="" selected></option>
+                    <option value="" selected></option>
                     {{#each categories}}
-                        <option value="{{this}}">{{this}}</option>
+                    <option value="{{this}}">{{this}}</option>
                     {{/each}}
                 </select>
             </div>
 
             <div class="course-list-filters-option">
-                <label class="course-list-filters-label" for="findByUser">Procurar somente por cursos avaliados por mim</label>
+                <label class="course-list-filters-label" for="findByUser">Procurar somente por cursos avaliados por
+                    mim</label>
                 <input type="checkbox" name="findByUser">
             </div>
 
@@ -94,24 +102,25 @@
             </div>
         </div>
     </form>
-        {{#if filter}}
-            <div>Filtrado por {{filter}}</div> <br><br>
-            <a href="/course/list"><button>Limpar</button></a><br><br>
-        {{/if}}
-        <div class="course-list-cards">
-        {{#each courses}}
-            <div class="course-list-cards-container">
-                {{> courseCard}}
-            </div>
-        {{/each}}
+   <div class="filter-cards">
+        <div class="filter-course-print">
+            {{#if filter}}
+            <div>Filtrado por <b>{{filter}}</b></div> <br><br>
+            <a href="/course/list">Limpar filtros</a>
+            {{/if}}
         </div>
+
+        <div class="course-list-cards">
+            {{#each courses}}
+            {{> courseCard}}
+            {{/each}}
+        </div>
+        </div>
+
+
 </div>
 
 <div class="course-list-bottom">
     Não encontrou o curso que procura?
     <a href="/course/add"><button class="course-list-bottom-button">Adicione um curso</button></a>
 </div>
-
-
-
-

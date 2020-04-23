@@ -119,8 +119,8 @@ a {
 }
 
 #login-partial:hover {
-	background-color: #ffffff;
-	color:#060e41;
+	background-color: #060e41;
+	color:#ffffff;
 	transition: all 0.4s ease 0s;
 	
 }
@@ -295,8 +295,8 @@ color: white;
 transition: all 0.4s ease 0s;
 }
 
-.profile-partial:hover {
-	color: #060e41;
+.profile-partial a:hover {
+	color: #63caa2;
 	transition: all 0.4s ease 0s;
 }
 
