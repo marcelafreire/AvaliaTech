@@ -30,20 +30,20 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 ## 📥 Como baixar o projeto
 ```bash
 
-//Clonar repositório
+#Clonar repositório
 $ git clone https://github.com/marcelafreire/AvaliaTech
 
-//Entrar no diretório
+#Entrar no diretório
 $ cd AvaliaTech
 
-//Instalar dependências
+#Instalar dependências
 $ npm install
 
-//Iniciar aplicação 
+#Iniciar aplicação 
 $ npm run dev
 
 ````
 
 ---
 
-Desenvolvido 👾 por Marcela Freire
+Desenvolvido 👾 por Marcela Freire e [Felipe Massao](https://github.com/felipemassao)
