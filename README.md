@@ -11,14 +11,14 @@
 
 ## 📝 Sobre
 
-**AvaliaTech** é uma plataforma de avaliação de cursos na área da tecnologia. Foi desenvolvido durante o bootcamp 
+**AvaliaTech** é uma plataforma de avaliação de cursos na área da tecnologia, que foi desenvolvido dentro do bootcamp de web dev da Ironhack para colocar em prática o conteúdo aprendido durante o curso.
 
 ---
 
 ## 🚀 Tecnologias
 
 O projeto foi desenvolvido utilizando as seguintes tecnologias:
-Node Express, MongoDB, Handlebars, HTML5, CSS3 eJavaScript ES6
+
 - [Node Express](https://expressjs.com/pt-br/)
 - [HandleBars](https://handlebarsjs.com/)
 - [MongoDB](https://www.mongodb.com/)
