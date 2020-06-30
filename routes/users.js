@@ -96,7 +96,6 @@ router.get('/profile/:id', ensureLogin.ensureLoggedIn(), (req, res) => {
 		loggedUser = req.user;
 	}
 	const { id } = req.params;
-
 	User.findOne({ _id: id })
 		.then((user) => {
 			res.render(`users/profile`, { user, loggedUser });
@@ -111,7 +110,9 @@ router.post('/profile-edit', uploadCloud.single('photo'), ensureLogin.ensureLogg
 	const { username, email } = req.body;
 	const { id } = req.query;
 
-	if (username !== '' || email !== '') {
+	if (username !== null) {
+		res.render(`/profile/${id}`, { errorMessageChange: "Nome de usuário não disponível" });
+		return;
 	}
 	User.findByIdAndUpdate({ _id: id }, { $set: { username, email } }, { new: true })
 		.then((response) => {
@@ -120,6 +121,7 @@ router.post('/profile-edit', uploadCloud.single('photo'), ensureLogin.ensureLogg
 		})
 		.catch((error) => console.log(error));
 });
+
 
 router.post('/img-edit', uploadCloud.single('photo'), ensureLogin.ensureLoggedIn(), (req, res) => {
 	const imgPath = req.file.url;
