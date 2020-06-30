@@ -1,0 +1,13 @@
+PORT=3000
+MONGODB_URI=mongodb://localhost/project-module-2
+MONGO_DB=project-module-2
+CLOUDINARY_KEY=
+CLOUDINARY_NAME=
+CLOUDINARY_SECRET=
+FACEBOOK_APP_ID=
+FACEBOOK_APP_SECRET=
+callbackURL_FB=
+GOOGLE_id=
+GOOGLE_pass=
+
+
